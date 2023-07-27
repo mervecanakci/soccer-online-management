@@ -14,19 +14,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferRequest {
 
-    @NotBlank
+  //  @NotBlank
     @Min(1)
     private int teamId;
 
-    @NotNull
-    private double teamValue;
+//    @NotNull
+ //   private double teamValue;
 
-    @NotBlank
+    @NotNull
     @Min(1)
     private int playerId;
 
-    @NotNull
-    private String playerMarketValue;
+    //@NotNull
+  //  private double playerMarketValue;
 
     private LocalDateTime dateOfTransfer;
 

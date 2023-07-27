@@ -1,6 +1,7 @@
 package com.turkcell.socceronlinemanagement.business.concretes;
 
 
+import com.turkcell.socceronlinemanagement.business.abstracts.PlayerService;
 import com.turkcell.socceronlinemanagement.business.abstracts.UserService;
 import com.turkcell.socceronlinemanagement.business.dto.requests.UserRequest;
 import com.turkcell.socceronlinemanagement.business.dto.responses.UserResponse;
@@ -19,7 +20,8 @@ public class UserManager implements UserService {
     private final UserRepository repository;
     private final ModelMapper mapper;
     private final UserBusinessRules rules;
-
+    private final PlayerManager playerManager;
+    private final PlayerService playerService;
     @Override
     public List<UserResponse> getAll() {
         List<User> users = repository.findAll();
@@ -47,6 +49,8 @@ public class UserManager implements UserService {
         User user = mapper.map(request, User.class);
         user.setId(0);
         repository.save(user);
+       //todo playerService.add(playerResponse);
+        //teamService.add(user);
         UserResponse response = mapper.map(user, UserResponse.class);
 
         return response;

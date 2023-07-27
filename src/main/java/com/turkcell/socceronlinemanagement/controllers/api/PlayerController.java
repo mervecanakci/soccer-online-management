@@ -31,6 +31,8 @@ public class PlayerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PlayerResponse add(@Valid @RequestBody PlayerRequest request) {
+
+
         return service.add(request);
     }
 

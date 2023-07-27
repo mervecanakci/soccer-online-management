@@ -29,6 +29,7 @@ public class TeamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TeamResponse add(@Valid @RequestBody TeamRequest request) {
+
         return service.add(request);
     }
 

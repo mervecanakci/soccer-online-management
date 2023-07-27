@@ -21,7 +21,7 @@ public class TransferResponse {
     private String playerId;
     private String playerName;
     private String playerCountry;
-    private String playerMarketValue;
+    private double playerMarketValue;
     private LocalDateTime dateOfTransfer;
     private boolean isCompleted;
 

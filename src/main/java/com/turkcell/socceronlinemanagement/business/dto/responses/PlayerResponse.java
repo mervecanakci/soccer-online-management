@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PlayerResponse {
     private int id;
     private int teamId;
-    private String teamName;
+    private String teamName; //hallet
     private int age;
     private String country;
     private String lastName;

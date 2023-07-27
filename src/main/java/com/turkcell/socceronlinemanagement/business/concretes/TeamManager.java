@@ -8,6 +8,7 @@ import com.turkcell.socceronlinemanagement.model.Player;
 import com.turkcell.socceronlinemanagement.model.Team;
 import com.turkcell.socceronlinemanagement.model.enums.Position;
 import com.turkcell.socceronlinemanagement.repository.TeamRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class TeamManager implements TeamService {
     }
 
     @Override
+    @Transactional
     public TeamResponse add(TeamRequest request) {
         Team team = mapper.map(request, Team.class);
         team.setId(0);

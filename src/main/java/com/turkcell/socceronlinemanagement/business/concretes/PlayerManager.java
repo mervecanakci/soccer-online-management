@@ -8,6 +8,7 @@ import com.turkcell.socceronlinemanagement.business.rules.PlayerBusinessRules;
 import com.turkcell.socceronlinemanagement.model.Player;
 import com.turkcell.socceronlinemanagement.model.enums.TransferState;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -42,9 +43,18 @@ public class PlayerManager implements PlayerService {
     }
 
     @Override
+    @Transactional
     public PlayerResponse add(PlayerRequest request) {
         Player player = mapper.map(request, Player.class);
         player.setId(0);
+        Player players= Player.builder()
+                .firstName(request.getRandomFirstName())
+                .lastName(request.getRandomLastName())
+                .age(request.getRandomAge())
+                .country(request.getRandomCountry())
+               // .marketValue(request.getMarketValue())
+                .transferState(TransferState.NOT_TRANSFERRED)
+                .build();
         repository.save(player);
         PlayerResponse response = mapper.map(player, PlayerResponse.class);
 
@@ -93,38 +103,6 @@ public class PlayerManager implements PlayerService {
 //        return increasedMarketValue;
 //    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-        private double getTotalMarketValue(Player player) {
-            return player.getMarketValue() * player.getRentedForDays();
-        }
-
-    private void transferArtir(Player player) {
-        Random random = new Random();
-        int minArtisYuzdesi = 10; // Minimum artış yüzdesi (%10)
-        int maxArtisYuzdesi = 100; // Maksimum artış yüzdesi (%100)
-
-        // Rastgele bir artış yüzdesi hesaplamak için nextInt() metodu kullanılır.
-        // nextInt(max - min + 1) ifadesi, min ve max arasında (max dahil) rastgele bir sayı üretir.
-        int rastgeleArtisYuzdesi = random.nextInt(maxArtisYuzdesi - minArtisYuzdesi + 1) + minArtisYuzdesi;
-
-        // Artış yüzdesine göre değeri güncelleme
-        double artisMiktari = player.getMarketValue() * rastgeleArtisYuzdesi / 100.0;
-        player.getMarketValue() += artisMiktari;
-    }
-*/
 
 
 }

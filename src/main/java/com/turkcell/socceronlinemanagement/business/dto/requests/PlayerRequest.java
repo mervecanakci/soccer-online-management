@@ -5,32 +5,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlayerRequest {
     private final Faker faker = new Faker();
     private int teamId;
-    private double marketValue;
+    private double marketValue=1000000;
 
     // Rastgele isim almak için
-    private String getRandomName() {
+    public String getRandomFirstName() {
         return faker.name().firstName();
     }
 
     // Rastgele soyisim almak için
-    private String getRandomLastName() {
+    public String getRandomLastName() {
         return faker.name().lastName();
     }
 
     // Rastgele ülke almak için
-    private String getRandomCountry() {
+    public String getRandomCountry() {
         return faker.address().country();
     }
 
     // Rastgele yaş almak için
-    private int getRandomAge() {
+    public int getRandomAge() {
         return faker.number().numberBetween(18, 49);
     }
 
