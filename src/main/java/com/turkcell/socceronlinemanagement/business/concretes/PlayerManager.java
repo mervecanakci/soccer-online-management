@@ -1,11 +1,14 @@
 package com.turkcell.socceronlinemanagement.business.concretes;
 
 
+import com.github.javafaker.Address;
 import com.turkcell.socceronlinemanagement.business.abstracts.PlayerService;
 import com.turkcell.socceronlinemanagement.business.dto.requests.PlayerRequest;
 import com.turkcell.socceronlinemanagement.business.dto.responses.PlayerResponse;
 import com.turkcell.socceronlinemanagement.business.rules.PlayerBusinessRules;
 import com.turkcell.socceronlinemanagement.model.Player;
+import com.turkcell.socceronlinemanagement.model.Team;
+import com.turkcell.socceronlinemanagement.model.enums.Position;
 import com.turkcell.socceronlinemanagement.model.enums.TransferState;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
 import jakarta.transaction.Transactional;
@@ -13,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,20 +50,25 @@ public class PlayerManager implements PlayerService {
     @Transactional
     public PlayerResponse add(PlayerRequest request) {
         Player player = mapper.map(request, Player.class);
-        player.setId(0);
-        Player players= Player.builder()
-                .firstName(request.getRandomFirstName())
-                .lastName(request.getRandomLastName())
-                .age(request.getRandomAge())
-                .country(request.getRandomCountry())
-               // .marketValue(request.getMarketValue())
-                .transferState(TransferState.NOT_TRANSFERRED)
-                .build();
+        //
+        //
+        //player.setId(0);
+        Player players = Player.builder()
+                    .firstName(request.getRandomFirstName())
+                    .lastName(request.getRandomLastName())
+                    .age(request.getRandomAge())
+                    .country(request.getRandomCountry())
+                    .position(request.getRandomPosition())
+                    .marketValue(request.getMarketValue())
+                    .build();
+            player.setTransferState(TransferState.NOT_TRANSFERRED);
+
         repository.save(player);
         PlayerResponse response = mapper.map(player, PlayerResponse.class);
 
         return response;
     }
+
 
     @Override
     public PlayerResponse update(int id, PlayerRequest request) {
@@ -103,6 +112,25 @@ public class PlayerManager implements PlayerService {
 //        return increasedMarketValue;
 //    }
 
+//    public Player createTeamForUser() {
+//        Player player = new Player();
+//
+//        createPlayers(Position.GOALKEEPER, 3);
+//        createPlayers(Position.DEFENDER, 6);
+//        createPlayers(Position.MIDFIELDER, 6);
+//        createPlayers(Position.ATTACKER, 5);
+//
+//        return player;
+//    }
 
+    private List<Player> createPlayers(Position position, int count) {
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Player player = new Player();
+            player.setPosition(position);
+            players.add(player);
+        }
+        return players;
+    }
 
 }

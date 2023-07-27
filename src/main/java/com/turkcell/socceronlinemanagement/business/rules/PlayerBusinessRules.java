@@ -13,7 +13,8 @@ public class PlayerBusinessRules {
     private final PlayerRepository repository;
 
     public void checkIfPlayerExistsById(int id) {
-        if (!repository.existsById(id)) throw new BusinessException(Messages.Player.NOT_EXISTS);
+        if (!repository.existsById(id))
+            throw new BusinessException(Messages.Player.NOT_EXISTS);
     }
 
 

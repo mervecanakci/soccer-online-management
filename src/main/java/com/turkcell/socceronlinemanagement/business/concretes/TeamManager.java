@@ -47,6 +47,7 @@ public class TeamManager implements TeamService {
     @Transactional
     public TeamResponse add(TeamRequest request) {
         Team team = mapper.map(request, Team.class);
+
         team.setId(0);
         repository.save(team);
         TeamResponse response = mapper.map(team, TeamResponse.class);
@@ -71,26 +72,28 @@ public class TeamManager implements TeamService {
         repository.deleteById(id);
     }
 
-    public Team createTeamForUser() {
-        Team team = new Team();
 
-        team.setPlayers(createPlayers(Position.GOALKEEPER, 3));
-        team.getPlayers().addAll(createPlayers(Position.DEFENDER, 6));
-        team.getPlayers().addAll(createPlayers(Position.MIDFIELDER, 6));
-        team.getPlayers().addAll(createPlayers(Position.ATTACKER, 5));
 
-        return team;
-    }
-
-    private List<Player> createPlayers(Position position, int count) {
-        List<Player> players = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            Player player = new Player();
-            player.setPosition(position);
-            players.add(player);
-        }
-        return players;
-    }
+//    public Team createTeamForUser() {
+//        Team team = new Team();
+//
+//        team.setPlayers(createPlayers(Position.GOALKEEPER, 3));
+//        team.getPlayers().addAll(createPlayers(Position.DEFENDER, 6));
+//        team.getPlayers().addAll(createPlayers(Position.MIDFIELDER, 6));
+//        team.getPlayers().addAll(createPlayers(Position.ATTACKER, 5));
+//
+//        return team;
+//    }
+//
+//    private List<Player> createPlayers(Position position, int count) {
+//        List<Player> players = new ArrayList<>();
+//        for (int i = 0; i < count; i++) {
+//            Player player = new Player();
+//            player.setPosition(position);
+//            players.add(player);
+//        }
+//        return players;
+//    }
 }
 
 

@@ -44,6 +44,8 @@ public class Player {
     private Team team;
 
 
+
+
     //TODO:RANDOM NAME GENERATOR KULLAn 1000-10000000 arası random sayı üret ve o sayı kadar oyuncu oluştur ve bu oyuncuları bir listeye ekle
     //TODO: oyunculara 18-48 arasıında rastgele yaş ata, rastgele ülke, isim ve soy isim de oluştur
     //TODO: son olarak da varsayılan 1000000 marketValue ata her bir oyuncu için bu sonradan değiştirilebilir olsun

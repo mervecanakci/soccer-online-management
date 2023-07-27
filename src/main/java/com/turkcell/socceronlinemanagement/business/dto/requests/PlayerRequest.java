@@ -1,6 +1,9 @@
 package com.turkcell.socceronlinemanagement.business.dto.requests;
 
+import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
+import com.turkcell.socceronlinemanagement.model.enums.Position;
+import com.turkcell.socceronlinemanagement.model.enums.TransferState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class PlayerRequest {
     private final Faker faker = new Faker();
     private int teamId;
-    private double marketValue=1000000;
+    private double marketValue = 1000000;
 
     // Rastgele isim almak için
     public String getRandomFirstName() {
@@ -33,6 +36,12 @@ public class PlayerRequest {
         return faker.number().numberBetween(18, 49);
     }
 
+    public Position getRandomPosition() {
+        return faker.options().option(Position.values());
+
+    }
+
+    public TransferState transferState;
     // todo denedin bir daha dene sil
 //    public void generateRandomPlayer() {
 //        String randomName = getRandomName();

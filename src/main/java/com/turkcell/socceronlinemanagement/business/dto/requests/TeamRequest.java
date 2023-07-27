@@ -11,6 +11,8 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeamRequest {
+    @Min(0)
+    private int userId;
 
     @Min(0)
     private int leagueId;
