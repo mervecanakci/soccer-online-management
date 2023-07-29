@@ -1,8 +1,8 @@
 package com.turkcell.socceronlinemanagement.controllers.api;
 
-import com.turkcell.socceronlinemanagement.business.abstracts.LeagueService;
-import com.turkcell.socceronlinemanagement.business.dto.requests.LeagueRequest;
-import com.turkcell.socceronlinemanagement.business.dto.responses.LeagueResponse;
+import com.turkcell.socceronlinemanagement.service.league.LeagueService;
+import com.turkcell.socceronlinemanagement.service.league.LeagueRequest;
+import com.turkcell.socceronlinemanagement.service.league.LeagueResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -19,15 +20,15 @@ import java.util.List;
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int age; // todo: 18 48 arası random method ile oluştur
+    private Integer id;
+    private Integer age; // todo: 18 48 arası random method ile oluştur
     //    private double height;
     //    private double weight;
     //   private int teamId;
     private String country;
     private String firstName;
     private String lastName;
-    private double marketValue = 1000000;
+    private BigDecimal marketValue = BigDecimal.valueOf(1000000);
     @Enumerated(EnumType.STRING)
     private Position position;
     @Enumerated(EnumType.STRING)

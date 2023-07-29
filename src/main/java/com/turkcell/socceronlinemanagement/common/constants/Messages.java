@@ -23,12 +23,7 @@ public class Messages {
 
     }
 
-    public static class TransferList {
-        public static final String TRANSFER_LIST_NOT_EXISTS = "TRANSFER_LIST_NOT_EXISTS";
-        public static final String PLAYER_EXISTS = "PLAYER_IS_CURRENTLY_UNDER_TRANSFER_LIST";
-        public static final String PLAYER_NOT_EXISTS = "PLAYER_NOT_REGISTERED_FOR_TRANSFER_LIST";
 
-    }
 
     public static class Transfer {
         public static final String NOT_EXISTS = "TRANSFER_NOT_EXISTS"; //TRANSFER_BULUNAMADI mevcut değil

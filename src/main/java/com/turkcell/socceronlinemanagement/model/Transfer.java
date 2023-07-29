@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,16 +18,16 @@ import java.time.LocalDateTime;
 public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int teamId;
-    private int oldTeamId;
-    private int newTeamId;
+    private Integer id;
+    private Integer teamId;
+    private Integer oldTeamId;
+    private Integer newTeamId;
     private String teamName;
-    private double teamValue;
+    private BigDecimal teamValue;
     // private String playerId;
     private String playerName;
     private String playerCountry;
-    private double playerMarketValue;
+    private BigDecimal playerMarketValue;
     private LocalDateTime dateOfTransfer;
     private boolean isCompleted;
 
@@ -40,6 +41,7 @@ public class Transfer {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
+
 
 }
 

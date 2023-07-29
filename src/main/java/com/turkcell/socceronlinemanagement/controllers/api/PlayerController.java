@@ -1,9 +1,9 @@
 package com.turkcell.socceronlinemanagement.controllers.api;
 
 
-import com.turkcell.socceronlinemanagement.business.abstracts.PlayerService;
-import com.turkcell.socceronlinemanagement.business.dto.requests.PlayerRequest;
-import com.turkcell.socceronlinemanagement.business.dto.responses.PlayerResponse;
+import com.turkcell.socceronlinemanagement.service.player.PlayerService;
+import com.turkcell.socceronlinemanagement.service.player.PlayerRequest;
+import com.turkcell.socceronlinemanagement.service.player.PlayerResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,13 +28,11 @@ public class PlayerController {
         return service.getById(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PlayerResponse add(@Valid @RequestBody PlayerRequest request) {
-
-
-        return service.add(request);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public List<PlayerResponse> add(@Valid @RequestBody PlayerRequest request) {
+//        return service.add(request);
+//    }
 
     @PutMapping("/{id}")
     public PlayerResponse update(@PathVariable int id, @RequestBody PlayerRequest request) {
