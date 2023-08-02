@@ -18,5 +18,5 @@ public class PaymentResponse {
     private String playerLastName;
     private String newTeamName;
     private String oldTeamName;
-    private BigDecimal balance;
+    private double teamValue;
 }

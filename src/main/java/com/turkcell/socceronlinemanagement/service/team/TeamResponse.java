@@ -14,10 +14,8 @@ import java.util.List;
 public class TeamResponse {
     private Integer id;
     private String teamName;
-    private BigDecimal teamValue;
-  //  private BigDecimal totalBalance; //todo
+    private double teamValue;
     private String teamCountry;
-
     private List<PlayerResponse> players;
    // private Integer leagueId;
   //  private String leagueName;

@@ -16,4 +16,5 @@ public class TeamBusinessRules {
     public void checkIfTeamExistsById(Integer id) {
         if (!repository.existsById(id)) throw new BusinessException(Messages.Team.NOT_EXISTS);
     }
+
 }

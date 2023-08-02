@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+import com.turkcell.socceronlinemanagement.model.Team;
 @Data
 @Entity
 @Builder
@@ -23,13 +23,14 @@ public class Transfer {
     private Integer oldTeamId;
     private Integer newTeamId;
     private String teamName;
-    private BigDecimal teamValue;
-    // private String playerId;
+    private double teamValue;
     private String playerName;
     private String playerCountry;
-    private BigDecimal playerMarketValue;
+    private double playerMarketValue = 100000.0;
+    private double  priceRequest;
     private LocalDateTime dateOfTransfer;
     private boolean isCompleted;
+    private LocalDateTime endDate;
 
     //    @ManyToMany
 //    @JoinTable(
@@ -41,6 +42,7 @@ public class Transfer {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
+
 
 
 }

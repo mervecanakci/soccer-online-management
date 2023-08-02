@@ -18,7 +18,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private BigDecimal balance;
+    private double teamValue;
     private Integer userId;
     private Integer teamId;
     private Integer playerId;

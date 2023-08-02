@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
     List<Player> findAllByTransferStateIsNot(TransferState transferState);
+
     // TransferState i hangi durumda istemiyorsan o durumu dışlayacak ve diğer durumları getirecek
     //playerManager.getAll da yapıyoruz bu filtreleme işlemini
 }

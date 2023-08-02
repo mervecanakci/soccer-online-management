@@ -14,12 +14,12 @@ import java.math.BigDecimal;
 public class PlayerResponse {
     private Integer id;
     private Integer teamId;
-    private String teamName; //hallet
+    private String teamName;
     private Integer age;
     private String country;
     private String lastName;
     private String firstName;
-    private BigDecimal marketValue;
+    private double marketValue;
     private Position position;
     private TransferState transferState;
 }

@@ -1,4 +1,4 @@
-package com.turkcell.socceronlinemanagement.controllers.api;
+package com.turkcell.socceronlinemanagement.api;
 
 
 import com.turkcell.socceronlinemanagement.service.payment.PaymentService;

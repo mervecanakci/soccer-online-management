@@ -2,29 +2,38 @@ package com.turkcell.socceronlinemanagement.service.team;
 
 import com.turkcell.socceronlinemanagement.model.Player;
 import com.turkcell.socceronlinemanagement.model.Team;
-import com.turkcell.socceronlinemanagement.model.enums.TransferState;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
 import com.turkcell.socceronlinemanagement.repository.TeamRepository;
-import com.turkcell.socceronlinemanagement.service.player.PlayerManager;
+import com.turkcell.socceronlinemanagement.service.player.PlayerBusinessRules;
+import com.turkcell.socceronlinemanagement.service.player.PlayerImpl;
 import com.turkcell.socceronlinemanagement.service.player.PlayerRequest;
 import com.turkcell.socceronlinemanagement.service.player.PlayerResponse;
+import com.turkcell.socceronlinemanagement.service.transfer.TransferBusinessRules;
+import com.turkcell.socceronlinemanagement.service.transfer.TransferPlayerRequest;
+import com.turkcell.socceronlinemanagement.service.transfer.TransferService;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class TeamManager implements TeamService {
+public class TeamImpl implements TeamService {
     private final TeamRepository repository;
     private final ModelMapper mapper;
     private final TeamBusinessRules rules;
-private final PlayerManager playerManager;
+    private final PlayerImpl playerManager;
     private final PlayerRepository playerRepository;
+    private final TeamBusinessRules teamBusinessRules;
+    private final TransferBusinessRules transferBusinessRules;
+    private final PlayerBusinessRules playerBusinessRules;
+    private final TeamRepository teamRepository;
+    private final Random random;
 
     @Override
     public List<TeamResponse> getAll() {
@@ -58,16 +67,20 @@ private final PlayerManager playerManager;
                 .addMappings(m -> m.skip(Team::setId));
 
         Team team = mapper.map(request, Team.class);
-    //    team.setId(0);
+        //   team.setId(0);
+
+
         repository.save(team);
         TeamResponse response = mapper.map(team, TeamResponse.class);
 
         PlayerRequest playerRequest = new PlayerRequest();
         // Gerekli verilerle playerRequest nesnesini doldurun
 
+
         List<PlayerResponse> playersForTeam = playerManager.add(playerRequest);
 
         for (PlayerResponse playerResponse : playersForTeam) {
+            team.setTeamValue(team.getTeamValue() + playerRequest.getMarketValue());
             Player player = mapper.map(playerResponse, Player.class);
             player.setTeam(team);
             playerRepository.save(player);
@@ -75,7 +88,6 @@ private final PlayerManager playerManager;
 
         return response;
     }
-
 
 
     @Override
@@ -95,6 +107,30 @@ private final PlayerManager playerManager;
         repository.deleteById(id);
     }
 
+    @Override
+    public TeamResponse addTransferPlayer(TransferPlayerRequest request) {
+        playerBusinessRules.checkIfPlayerExistsById(request.getPlayerId());
+        transferBusinessRules.checkIfTransferExistsById(request.getPlayerId());
+
+        teamBusinessRules.checkIfTeamExistsById(request.getPlayerId());
+        final double marketValue = playerRepository.findById(request.getPlayerId()).get().getMarketValue();
+        transferBusinessRules.checkIfBalanceIsEnough(marketValue, request.getPrice());
+        final Player player = playerRepository.findById(request.getPlayerId()).get();
+        final Team team = teamRepository.findById(request.getTeamId()).get();
+        player.setTeam(team);
+
+        double increasedMarketValue = getIncreasedMarketValue(request);
+        player.setMarketValue(increasedMarketValue);
+        this.playerRepository.save(player);
+        return mapper.map(team, TeamResponse.class);
+    }
+
+    private double getIncreasedMarketValue(TransferPlayerRequest request) {
+        double increasePercentage = 10 + (100 - 10) * random.nextDouble();
+        double increaseAmount = request.getPrice() * increasePercentage / 100;
+        return request.getPrice() + increaseAmount;
+
+    }
 
 
 //    public Team createTeamForUser() {

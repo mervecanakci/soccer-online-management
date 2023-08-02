@@ -20,9 +20,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String teamName;
-    private BigDecimal teamValue = BigDecimal.valueOf(5000000);
+    private double teamValue = 5000000.0;
     private String teamCountry;
-  //  private BigDecimal totalBalance; //todo: default takım değeri + oyuncuların marketValue toplamı
+
 
 
     @ManyToOne
@@ -31,7 +31,7 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
-
-    @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
-    private User user;
+//
+//    @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
+//    private User user;
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LeagueManager implements LeagueService {
+public class LeagueImpl  implements LeagueService {
 
     private final LeagueRepository repository;
     private final ModelMapper mapper;

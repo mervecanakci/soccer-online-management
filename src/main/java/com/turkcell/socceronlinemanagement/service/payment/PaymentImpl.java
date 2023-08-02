@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentManager implements PaymentService {
+public class PaymentImpl  implements PaymentService {
     private final PaymentRepository repository;
     private final ModelMapper mapper;
     private final PosService posService;
@@ -69,11 +69,11 @@ public class PaymentManager implements PaymentService {
 
     @Override
     public void processTransferPayment(CreateTransferPaymentRequest request) {
-        rules.checkIfPaymentIsValid(request);
-        Payment payment = repository.findByBalance(request.getBalance());
-        rules.checkIfBalanceIsEnough(request.getPlayerMarketValue(), payment.getBalance());
+      //  rules.checkIfPaymentIsValid(request);
+        Payment payment = repository.findByTeamValue(request.getTeamValue());
+        rules.checkIfBalanceIsEnough(request.getPlayerMarketValue(), payment.getTeamValue());
         posService.pay(); // fake pos service
-        payment.setBalance(payment.getBalance().subtract(request.getPlayerMarketValue()));
+        payment.setTeamValue(payment.getTeamValue()-(request.getPlayerMarketValue()));
         repository.save(payment);
     }
 }

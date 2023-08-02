@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 @RequiredArgsConstructor
 public class PaymentBusinessRules {
@@ -22,23 +20,30 @@ public class PaymentBusinessRules {
         }
     }
 
-    public void checkIfBalanceIsEnough(BigDecimal playerMarketValue, BigDecimal balance) {
-        int comparisonResult = playerMarketValue.compareTo(balance);
-
-        if (comparisonResult > 0) {
+    ////BigDECİAMLEGÖRE YAZMIŞTIN
+//    public void checkIfBalanceIsEnough(Double playerMarketValue, Double balance) {
+//        int comparisonResult = playerMarketValue.compareTo(balance);
+//
+//        if (comparisonResult > 0) {
+//            throw new BusinessException(Messages.Payment.NOT_ENOUGHT_MONEY);
+//        }
+//    }
+    public void checkIfBalanceIsEnough(double playerMarketValue, double teamValue) {
+        if (teamValue < playerMarketValue) {
             throw new BusinessException(Messages.Payment.NOT_ENOUGHT_MONEY);
         }
     }
+
 //todo hata veriyordu yorumda *** düzeldi test etmedin ama
 
-    public void checkIfPaymentIsValid(CreateTransferPaymentRequest request) { //Ödemenin Geçerli olup olmadığını kontrol ediyoruz.
-        if (!repository.existsByUserIdAndTeamIdAndPlayerId(
-                request.getUserId(),
-                request.getTeamId(),
-                request.getPlayerId()
-        ))
-        {            throw new BusinessException(Messages.Payment.NOT_A_VALID_PAYMENT);
-        }
-
-    }
+//    public void checkIfPaymentIsValid(CreateTransferPaymentRequest request) { //Ödemenin Geçerli olup olmadığını kontrol ediyoruz.
+//        if (!repository.existsByUserIdAndTeamIdAndPlayerId(
+//                request.getUserId(),
+//                request.getTeamId(),
+//                request.getPlayerId()
+//        )) {
+//            throw new BusinessException(Messages.Payment.NOT_A_VALID_PAYMENT);
+//        }
+//
+//    }
 }

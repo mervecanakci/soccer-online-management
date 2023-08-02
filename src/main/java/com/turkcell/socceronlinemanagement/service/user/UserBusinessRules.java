@@ -22,11 +22,11 @@ public class UserBusinessRules {
 //        }
 //    }
 
-    public void checkIfEmailExists(UserRequest request) {
-        if (repository.existsByEmail(request.getEmail())) {
-            throw new BusinessException(Messages.User.EMAIL_ALREADY_EXISTS);
-        }
-    }
+//    public void checkIfEmailExists(UserRequest request) {
+//        if (repository.existsByEmail(request.getEmail())) {
+//            throw new BusinessException(Messages.User.EMAIL_ALREADY_EXISTS);
+//        }
+//    }
 /**
  *  çok saçma bir kod yazdın düzelt
  */

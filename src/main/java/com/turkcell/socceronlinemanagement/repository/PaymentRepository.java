@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     // uniq olsun istediğimiz için:
     //bu sorguyu transfer de kullanıcaz caRDnUMBER UNİQ DİYE ONLA YAPTIK
-    Payment findByBalance(BigDecimal balance);
+    Payment findByTeamValue(double teamValue);
 
 
     //todo hata veriyordu yorumda *** düzeldi test etmedin ama

@@ -13,5 +13,5 @@ import java.math.BigDecimal;
 public class PaymentRequest {
 
     @Min(value = 1)
-    private BigDecimal balance;
+    private double teamValue;
 }

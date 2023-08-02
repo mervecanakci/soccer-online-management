@@ -17,10 +17,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class TeamRequest {
 
-
-//
-//    @Min(0)
-//    private Integer userId;
+    @Min(0)
+    private Integer userId;
 
 //    @Min(0)
 //    private Integer leagueId;
@@ -33,10 +31,7 @@ public class TeamRequest {
     private String teamCountry;
 
     //@Value("${team.value:5000000}")
-    private BigDecimal teamValue; //todo: Takım değeri (oyuncu değerlerinin toplamı)
+  //  private double teamValue = 5000000.0; //todo: Takım değeri (oyuncu değerlerinin toplamı)
 
-
-    //private double totalBalance; // default takım değeri + oyuncuların toplamı
 
 }
-//TODO: BURADA; HESAPLANIP RESPONSE DA OKUNACAK DEĞERLER VARRR totalBalance

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,17 +11,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferResponse {
     private Integer id;
-    private Integer leagueId;
-    private String leagueName;
     private Integer teamId;
-    private Integer oldTeamId;
-    private Integer newTeamId;
+   // private Integer oldTeamId; //todo: eski takımı da tutmak lazım
+   // private Integer newTeamId;
     private String teamName;
-    private BigDecimal teamValue;
-    private String playerId;
+    private double teamValue;
+  //  private String playerId;
     private String playerName;
     private String playerCountry;
-    private BigDecimal playerMarketValue;
+    private double playerMarketValue;
+    private double  priceRequest;
     private LocalDateTime dateOfTransfer;
     private boolean  isCompleted;
 

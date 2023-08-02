@@ -1,4 +1,4 @@
-package com.turkcell.socceronlinemanagement.controllers.api;
+package com.turkcell.socceronlinemanagement.api;
 
 import com.turkcell.socceronlinemanagement.service.league.LeagueService;
 import com.turkcell.socceronlinemanagement.service.league.LeagueRequest;
@@ -6,6 +6,7 @@ import com.turkcell.socceronlinemanagement.service.league.LeagueResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class LeagueController {
     }
 
     @GetMapping("/{id}")
-    public LeagueResponse getById(@PathVariable int id) {
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public LeagueResponse getById(@PathVariable Integer id) {
         return service.getById(id);
     }
 

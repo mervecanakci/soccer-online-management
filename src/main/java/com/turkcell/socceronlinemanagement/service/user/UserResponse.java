@@ -1,19 +1,17 @@
 package com.turkcell.socceronlinemanagement.service.user;
 
+import com.turkcell.socceronlinemanagement.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserResponse {
-    private Integer id;
-    private String email;
-    //  private String country;
-    private String password;
-    //    private String lastName;
-//    private String firstName;
-//    private int teamId;
-//    private String teamName;
+    //kayıt olduğunda token dönecek
+    private String token;
+    private User user;
 }
