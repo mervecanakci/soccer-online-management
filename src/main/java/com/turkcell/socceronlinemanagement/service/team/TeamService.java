@@ -1,6 +1,8 @@
 package com.turkcell.socceronlinemanagement.service.team;
 
+
 import com.turkcell.socceronlinemanagement.service.transfer.TransferPlayerRequest;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -15,5 +17,5 @@ public interface TeamService {
 
     void delete(int id);
 
-    TeamResponse addTransferPlayer(TransferPlayerRequest request);
+    TeamResponse addTransferPlayer(@Valid TransferPlayerRequest request);
 }

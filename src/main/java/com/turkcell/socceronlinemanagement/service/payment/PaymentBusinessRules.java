@@ -2,10 +2,8 @@ package com.turkcell.socceronlinemanagement.service.payment;
 
 
 import com.turkcell.socceronlinemanagement.common.constants.Messages;
-import com.turkcell.socceronlinemanagement.common.dto.CreateTransferPaymentRequest;
 import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
 import com.turkcell.socceronlinemanagement.repository.PaymentRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

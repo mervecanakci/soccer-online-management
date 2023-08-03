@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -92,28 +94,6 @@ public class PlayerImpl  implements PlayerService {
         return repository.findAllByTransferStateIsNot(TransferState.TRANSFERRED);
     }
 
-//    public Player createTeamForUser() {
-//        Player player = new Player();
-//
-//        createPlayers(Position.GOALKEEPER, 3);
-//        createPlayers(Position.DEFENDER, 6);
-//        createPlayers(Position.MIDFIELDER, 6);
-//        createPlayers(Position.ATTACKER, 5);
-//
-//        return player;
-//    }
-
-//    private List<Player> createPlayers(Position position, Integer count) {
-//        List<Player> players = new ArrayList<>();
-//        for (int i = 0; i < count; i++) {
-//            Player player = new Player();
-//            player.setPosition(position);
-//            players.add(player);
-//        }
-//        return players;
-//    }
-
-
     private List<Player> generatePlayers() {
         List<Player> players = new ArrayList<>();
         int playerCount = 20; // Sabit olarak 20 oyuncu oluşturacak
@@ -137,28 +117,7 @@ public class PlayerImpl  implements PlayerService {
         }
         return players;
     }
-//
-//        public Player createTeamForUser() {
-//        Player player = new Player();
-//            generatePlayers(Position.GOALKEEPER, 3);
-//            generatePlayers(Position.DEFENDER, 6);
-//            generatePlayers(Position.MIDFIELDER, 6);
-//            generatePlayers(Position.ATTACKER, 5);
-//        return player;
-//    }
-
-
-
-
 
 }
-//    public Player createTeamForUser() {
-//        List<Player> players = generatePlayers();
-//
-//        for (Player player : players) {
-//            repository.save(player);
-//        }
-//
-//        return players.get(0); // Return any player from the generated team (optional)
-//    }
+
 

@@ -4,7 +4,6 @@ package com.turkcell.socceronlinemanagement.service.player;
 import com.turkcell.socceronlinemanagement.common.constants.Messages;
 import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

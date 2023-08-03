@@ -4,8 +4,6 @@ package com.turkcell.socceronlinemanagement.repository;
 import com.turkcell.socceronlinemanagement.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.math.BigDecimal;
-
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     // uniq olsun istediğimiz için:
     //bu sorguyu transfer de kullanıcaz caRDnUMBER UNİQ DİYE ONLA YAPTIK

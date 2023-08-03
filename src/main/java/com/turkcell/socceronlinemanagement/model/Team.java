@@ -19,20 +19,14 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String teamName;
-    private double teamValue = 5000000.0;
+    private double teamValue = 5000000;
     private String teamCountry;
 
-
-
-    @ManyToOne
-    @JoinColumn(name = "league_id")
-    public League league;
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    @OneToOne
-//    @OneToOne(mappedBy = "team")
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }

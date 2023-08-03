@@ -1,6 +1,7 @@
 package com.turkcell.socceronlinemanagement.service.user;
 
 
+import com.turkcell.socceronlinemanagement.common.constants.Messages;
 import com.turkcell.socceronlinemanagement.common.constants.Regex;
 import com.turkcell.socceronlinemanagement.model.enums.Role;
 import jakarta.validation.constraints.Pattern;
@@ -15,12 +16,11 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegisterRequest {
-   // private String name;
-   @Pattern(regexp = Regex.Email)
+    @Pattern(regexp = Regex.EmailRegex, message = Messages.User.EmailNotValid)
     private String email;
     @Length(min = 8, max = 25, message = "Password length must be between 8 and 25 characters..")
     private  String password;
-   // private String username;
+
     private Role role;
-  //  private String email;
+
 }

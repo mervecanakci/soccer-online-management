@@ -4,12 +4,10 @@ package com.turkcell.socceronlinemanagement.service.payment;
 import com.turkcell.socceronlinemanagement.common.dto.CreateTransferPaymentRequest;
 import com.turkcell.socceronlinemanagement.model.Payment;
 import com.turkcell.socceronlinemanagement.repository.PaymentRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service

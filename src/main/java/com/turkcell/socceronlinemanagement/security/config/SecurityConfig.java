@@ -27,14 +27,14 @@ public class SecurityConfig {
 //        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
 //                "/configuration/security", "/swagger-ui.html", "/webjars/**");
 //    }
-
+// .cors() //cross origin resource sharing  farklı kaynaklardan gelen istekleri paylaşmak için kullanılır
+//   .and()
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .csrf() //csrf: cross site request forgery istek dolandırılıcılığı gibi isteklerin önüne geçmek için kullanılır
                 .disable()  //csrf disable ediyoruz çünkü şu anda bu isteklerin önüne geçmek için bir önlem almamıza gerek yok
-               // .cors() //cross origin resource sharing  farklı kaynaklardan gelen istekleri paylaşmak için kullanılır
-             //   .and()
                 .authorizeHttpRequests() //http isteklerini authorize ediyoruz
                 .requestMatchers("/api/users/**", "/spring-actuator/**")//,"/swagger-ui/**
                 //bu isteklerin hepsine izin veriyor

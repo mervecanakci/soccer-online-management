@@ -19,26 +19,18 @@ public class Transfer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String teamName;
-    private int teamValue;
-    private double playerMarketValue = 100000.0;
+    private double teamValue;
+    private String playerName;
+    private String playerCountry;
+    private double playerMarketValue = 1000000;
     private double  price;
     private LocalDateTime dateOfTransfer;
     private boolean isCompleted;
     private LocalDateTime endDate;
 
-    //    @ManyToMany
-//    @JoinTable(
-//            name = "player_transfer",
-//            joinColumns = @JoinColumn(name = "transfer_id"),
-//            inverseJoinColumns = @JoinColumn(name = "player_id"))
-//    private List<Player> players = new ArrayList<>();
-//
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
 
-
-
 }
 
-// todo:bonservis bedeli yeni kulüp tarafından ödenir

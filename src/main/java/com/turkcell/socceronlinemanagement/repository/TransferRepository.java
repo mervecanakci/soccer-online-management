@@ -9,5 +9,7 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
     boolean existsByPlayerIdAndIsCompletedIsFalse(Integer playerId);
     // false olarak aldık çünkü add kısmında oyuncu transfer listesinde mi
     // buna bakması lazım öncelikle
+    Transfer findByPlayerId(int playerId);
+
 
 }

@@ -3,6 +3,7 @@ package com.turkcell.socceronlinemanagement.service.user;
 import com.turkcell.socceronlinemanagement.model.User;
 import com.turkcell.socceronlinemanagement.repository.UserRepository;
 import com.turkcell.socceronlinemanagement.security.filter.JwtService;
+import com.turkcell.socceronlinemanagement.service.team.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,18 +25,29 @@ public class UserImpl  implements UserService {
     private final AuthenticationManager authenticationManager;
     private final ModelMapper mapper;
     private final UserBusinessRules rules;
+    private final TeamService teamService;
+
     public UserResponse register(UserRegisterRequest request) { //  kullanıcı kayıt edilir
         var user = new User();
         user.setRole(request.getRole());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // şifre encode edilir. encode şifreleme işlemidir.
-        user.setId(0);
         //user.setId(null); böyleydi üstteki gibi, yaptın
         var jwtToken = jwtService.generateToken(user);
         repository.save(user);
-        return new UserResponse(jwtToken,user);
+        UserResponse response = new UserResponse();
+        response.setId(user.getId());
+        response.setToken(jwtToken);
+        response.setUser(user);
+        response.setEmail(user.getEmail());
+        response.setPassword(user.getPassword());
+        response.setTeams(teamService.getAll());
 
+
+        // return new UserResponse(jwtToken,user); //todo bunu şimdi değiştin
+        return response;
     }
+
 
     public UserResponse authenticate(UserAuthRequest request) { // authenticate: kullanıcı doğrulanır
         User user;
@@ -52,7 +64,18 @@ public class UserImpl  implements UserService {
            // log.error(ExceptionTypes.Exception.Auth+" "+e.getMessage());
             throw new RuntimeException("Kullanıcı doğrulanamadı!"); // kullanıcı doğrulanamadı hatası fırlatılır
         }
-        return new UserResponse(jwtToken, user);
+      //  UserResponse response = mapper.map(user, UserResponse.class);
+      UserResponse response = new UserResponse();
+        response.setId(user.getId());
+        response.setToken(jwtToken);
+        response.setUser(user);
+        response.setEmail(user.getEmail());
+        response.setPassword(user.getPassword());
+        response.setTeams(teamService.getAll());
+
+
+        // return new UserResponse(jwtToken,user); //todo bunu şimdi değiştin
+        return response;
     }
     @Override
     public List<UserResponse> getAll() {
@@ -74,8 +97,8 @@ public class UserImpl  implements UserService {
     }
     @Override
     public UserResponse add(UserAuthRequest request) {
+        rules.checkIfUserExistsByEmail(request.getEmail());
         User user = mapper.map(request, User.class);
-        user.setId(0);
         repository.save(user);
         UserResponse response = mapper.map(user, UserResponse.class);
 
@@ -96,30 +119,4 @@ public class UserImpl  implements UserService {
         rules.checkIfUserExistsById(id);
         repository.deleteById(id);
     }
-/*
-
-    public void createTeamForUser(User user) {
-        Team team = new Team();
-
-        team.setGoalkeepers(createPlayers(Position.GOALKEEPER, 3));
-        team.setDefenders(createPlayers(Position.DEFENDER, 6));
-        team.setMidfielders(createPlayers(Position.MIDFIELDER, 6));
-        team.setAttackers(createPlayers(Position.ATTACKER, 5));
-
-        user.setTeam(team);
     }
-
-    private List<Player> createPlayers(Position position, int count) {
-        List<Player> players = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            Player player = new Player();
-            player.setPosition(position);
-            players.add(player);
-        }
-        return players;
-    }*/
-    }
-// feride
-// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZXJpZGUiLCJpYXQiOjE2OTEwMTMzMzIsImV4cCI6MTY5MTAxNDc3Mn0.CocOo2EK5lPjAV6RF_fxQ-mi4TqfyPekhp8TXC2g69Y
-//merve
-// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ2ZSIsImlhdCI6MTY5MTAxMzI5NSwiZXhwIjoxNjkxMDE0NzM1fQ.3Hv8UMglAJcwl9Yv9MRMgTzNS-4AhTLjL8xA6kdNNWc

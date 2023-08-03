@@ -1,16 +1,11 @@
 package com.turkcell.socceronlinemanagement.service.transfer;
 
-import com.turkcell.socceronlinemanagement.service.payment.PaymentRequest;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.net.ssl.SSLSession;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -18,16 +13,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferRequest {
 
-    private int teamId;
+ //   private int teamId;
     //    @NotNull
-//    private double teamValue;
+ @JsonIgnore
+    private double teamValue;
 
     private int playerId;
+    @JsonIgnore
+    private String playerName;
+    @JsonIgnore
+    private String teamName;
 
+    @JsonIgnore
     private double playerMarketValue;
 
     private double price;
-    private double teamValue;
+
+
 
 
     }

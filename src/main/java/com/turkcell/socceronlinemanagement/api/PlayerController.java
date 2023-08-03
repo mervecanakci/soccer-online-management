@@ -19,30 +19,32 @@ public class PlayerController {
     private final PlayerService service;
 
     @GetMapping
-  // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PlayerResponse> getAll(@RequestParam(defaultValue = "true") boolean includeTransfer) {
-        // includeTransfer i default true verdik
         return service.getAll(includeTransfer);
     }
 
     @GetMapping("/{id}")
- //  @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public PlayerResponse getById(@PathVariable int id) {
         return service.getById(id);
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public List<PlayerResponse> add(@Valid @RequestBody PlayerRequest request) {
-//        return service.add(request);
-//    }
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<PlayerResponse> add(@Valid @RequestBody PlayerRequest request) {
+        return service.add(request);
+    }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public PlayerResponse update(@PathVariable int id, @RequestBody PlayerRequest request) {
         return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         service.delete(id);

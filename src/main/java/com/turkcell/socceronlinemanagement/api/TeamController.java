@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/teams")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 public class TeamController {
     private final TeamService service;
 
@@ -39,16 +39,19 @@ public class TeamController {
     }
 
     @PostMapping("/transfer/player")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public TeamResponse transferPlayer(@Valid @RequestBody TransferPlayerRequest request) {
         return service.addTransferPlayer( request);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public TeamResponse update(@PathVariable int id, @RequestBody TeamRequest request) {
         return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         service.delete(id);

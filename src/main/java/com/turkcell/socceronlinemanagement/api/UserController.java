@@ -1,6 +1,5 @@
 package com.turkcell.socceronlinemanagement.api;
 
-
 import com.turkcell.socceronlinemanagement.service.user.UserAuthRequest;
 import com.turkcell.socceronlinemanagement.service.user.UserRegisterRequest;
 
@@ -18,17 +17,19 @@ import java.util.List;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService service;
+
     @PostMapping("/register")
     public UserResponse register(@Valid @RequestBody UserRegisterRequest request) {
         return service.register(request);
     }
+
     @PostMapping("/authenticate")
     public UserResponse authenticate(@RequestBody UserAuthRequest request) {
         return service.authenticate(request);
     }
     @GetMapping
-  //  @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAll() {
         return service.getAll();
@@ -39,17 +40,20 @@ public class UserController {
         return service.getById(id);
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse add(@Valid @RequestBody UserAuthRequest request) {
         return service.add(request);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse update(@PathVariable int id, @RequestBody UserAuthRequest request) {
         return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         service.delete(id);

@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -25,6 +24,7 @@ public class Player {
     private String country;
     private String firstName;
     private String lastName;
+   // private  String teamName;
     private double marketValue = 1000000.0;
     @Enumerated(EnumType.STRING)
     private Position position;
@@ -40,7 +40,6 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
-
 
 
 }

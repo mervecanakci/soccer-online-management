@@ -24,19 +24,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
      private String email;
- //  private String name;
-    //  private String country;
+
     private String password;
 
    @Enumerated(EnumType.STRING)
     private Role role;
 
-//    private String lastName;
-//    private String firstName;
-
-    @OneToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
+    @OneToMany(mappedBy = "user")
+    private List<Team> teams;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -46,7 +41,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
