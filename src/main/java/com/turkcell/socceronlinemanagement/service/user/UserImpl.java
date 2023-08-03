@@ -29,10 +29,12 @@ public class UserImpl  implements UserService {
         user.setRole(request.getRole());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // şifre encode edilir. encode şifreleme işlemidir.
-        user.setId(null);
+        user.setId(0);
+        //user.setId(null); böyleydi üstteki gibi, yaptın
         var jwtToken = jwtService.generateToken(user);
         repository.save(user);
         return new UserResponse(jwtToken,user);
+
     }
 
     public UserResponse authenticate(UserAuthRequest request) { // authenticate: kullanıcı doğrulanır
@@ -63,7 +65,7 @@ public class UserImpl  implements UserService {
         return response;
     }
     @Override
-    public UserResponse getById(Integer id) {
+    public UserResponse getById(int id) {
         rules.checkIfUserExistsById(id);
         User user = repository.findById(id).orElseThrow();
         UserResponse response = mapper.map(user, UserResponse.class);
@@ -80,7 +82,7 @@ public class UserImpl  implements UserService {
         return response;
     }
     @Override
-    public UserResponse update(Integer id, UserAuthRequest request) {
+    public UserResponse update(int id, UserAuthRequest request) {
         rules.checkIfUserExistsById(id);
         User user = mapper.map(request, User.class);
         user.setId(id);
@@ -90,7 +92,7 @@ public class UserImpl  implements UserService {
         return response;
     }
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         rules.checkIfUserExistsById(id);
         repository.deleteById(id);
     }
@@ -118,6 +120,6 @@ public class UserImpl  implements UserService {
     }*/
     }
 // feride
-// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZXJpZGUiLCJpYXQiOjE2OTA5NzQ1OTksImV4cCI6MTY5MDk3NjAzOX0.yLGwIQGghdj0y37TZLPiAWf3YbYLnyDNm-eBIUMvBBg
+// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZXJpZGUiLCJpYXQiOjE2OTEwMTMzMzIsImV4cCI6MTY5MTAxNDc3Mn0.CocOo2EK5lPjAV6RF_fxQ-mi4TqfyPekhp8TXC2g69Y
 //merve
-// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ2ZSIsImlhdCI6MTY5MDk3NDYzMywiZXhwIjoxNjkwOTc2MDczfQ.MbCBSOBAj7ctyfzeS9bQtn2bOYCLyqm3tnHmO4RLgII
+// eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZXJ2ZSIsImlhdCI6MTY5MTAxMzI5NSwiZXhwIjoxNjkxMDE0NzM1fQ.3Hv8UMglAJcwl9Yv9MRMgTzNS-4AhTLjL8xA6kdNNWc

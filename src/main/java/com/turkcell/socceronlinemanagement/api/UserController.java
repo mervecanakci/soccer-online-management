@@ -20,7 +20,7 @@ import java.util.List;
 public class UserController {
     private final UserService service;
     @PostMapping("/register")
-    public UserResponse register(@RequestBody UserRegisterRequest request) {
+    public UserResponse register(@Valid @RequestBody UserRegisterRequest request) {
         return service.register(request);
     }
     @PostMapping("/authenticate")
@@ -35,7 +35,7 @@ public class UserController {
     }
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public UserResponse getById(@PathVariable Integer id) {
+    public UserResponse getById(@PathVariable int id) {
         return service.getById(id);
     }
     @PostMapping

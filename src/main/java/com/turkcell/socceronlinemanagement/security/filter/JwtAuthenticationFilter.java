@@ -32,16 +32,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-        Map<String, String> map = new HashMap<String, String>();
+ //       Map<String, String> map = new HashMap<String, String>();
 
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = (String) headerNames.nextElement();
-            System.out.println(key);
-            String value = request.getHeader(key);
-            System.out.println(value);
-            map.put(key, value);
-        }
+//        Enumeration headerNames = request.getHeaderNames();
+//        while (headerNames.hasMoreElements()) {
+//            String key = (String) headerNames.nextElement();
+//            System.out.println(key);
+//            String value = request.getHeader(key);
+//            System.out.println(value);
+//            map.put(key, value);
+//        }
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;

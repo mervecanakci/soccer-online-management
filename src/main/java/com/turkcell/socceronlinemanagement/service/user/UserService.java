@@ -6,8 +6,8 @@ public interface UserService {
     UserResponse register(UserRegisterRequest request);
     UserResponse authenticate(UserAuthRequest request);
     List<UserResponse> getAll();
-    UserResponse getById(Integer id);
+    UserResponse getById(int id);
     UserResponse add(UserAuthRequest request);
-    UserResponse update(Integer id, UserAuthRequest request);
-    void delete(Integer id);
+    UserResponse update(int id, UserAuthRequest request);
+    void delete(int id);
 }

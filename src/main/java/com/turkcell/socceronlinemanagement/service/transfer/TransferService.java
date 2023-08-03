@@ -5,13 +5,13 @@ import java.util.List;
 public interface TransferService {
     List<TransferResponse> getAll();
 
-    TransferResponse getById(Integer id);
+    TransferResponse getById(int id);
 
-    TransferResponse returnPlayerFromTransfer(Integer playerId);
+    TransferResponse returnPlayerFromTransfer(int playerId);
 
     TransferResponse add(TransferRequest request);
 
-    TransferResponse update(Integer id, TransferRequest request);
+    TransferResponse update(int id, TransferRequest request);
 
-    void delete(Integer id);
+    void delete(int id);
 }

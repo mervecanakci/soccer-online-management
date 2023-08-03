@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentResponse {
-    private Integer id;
-    private Integer teamId;
+    private int id;
+    private int teamId;
     private String teamName;
-    private Integer playerId;
+    private int playerId;
     private String playerFirstName;
     private String playerLastName;
     private String newTeamName;

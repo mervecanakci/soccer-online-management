@@ -32,7 +32,7 @@ public class PlayerImpl  implements PlayerService {
     }
 
     @Override
-    public PlayerResponse getById(Integer id) {
+    public PlayerResponse getById(int id) {
         rules.checkIfPlayerExistsById(id);
         Player player = repository.findById(id).orElseThrow();
         PlayerResponse response = mapper.map(player, PlayerResponse.class);
@@ -58,7 +58,7 @@ public class PlayerImpl  implements PlayerService {
     }
 
     @Override
-    public PlayerResponse update(Integer id, PlayerRequest request) {
+    public PlayerResponse update(int id, PlayerRequest request) {
         rules.checkIfPlayerExistsById(id);
         Player player = mapper.map(request, Player.class);
         player.setId(0);
@@ -70,13 +70,13 @@ public class PlayerImpl  implements PlayerService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         rules.checkIfPlayerExistsById(id);
         repository.deleteById(id);
     }
 
     @Override
-    public void changeTransferState(Integer playerId, TransferState transferState) {
+    public void changeTransferState(int playerId, TransferState transferState) {
         Player player = repository.findById(playerId).orElseThrow();
         player.setTransferState(transferState);
         repository.save(player);

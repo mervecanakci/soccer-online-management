@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlayerResponse {
-    private Integer id;
-    private Integer teamId;
+    private int id;
+    private int teamId;
     private String teamName;
-    private Integer age;
+    private int age;
     private String country;
     private String lastName;
     private String firstName;

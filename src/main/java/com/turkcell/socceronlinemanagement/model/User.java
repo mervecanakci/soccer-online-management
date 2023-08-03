@@ -22,7 +22,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
      private String email;
  //  private String name;
     //  private String country;
@@ -34,11 +34,9 @@ public class User implements UserDetails {
 //    private String lastName;
 //    private String firstName;
 
-
     @OneToOne
     @JoinColumn(name = "team_id")
     private Team team;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -48,10 +46,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-//    @Override
-//    public String getUsername() {
-//        return username;
-//    }
+
 
     @Override
     public boolean isAccountNonExpired() {

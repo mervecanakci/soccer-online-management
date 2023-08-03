@@ -19,7 +19,7 @@ public class PlayerRequest {
 
     private final Faker faker = new Faker();
 
-    private Integer teamId;
+    private int teamId;
 
     private double marketValue = 1000000.0;
 

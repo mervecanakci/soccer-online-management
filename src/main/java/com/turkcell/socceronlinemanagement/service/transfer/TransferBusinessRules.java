@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 public class TransferBusinessRules {
     private final TransferRepository repository;
 
-    public void checkIfTransferExistsById(Integer id) { // transfer var mı
+    public void checkIfTransferExistsById(int id) { // transfer var mı
         if (!repository.existsById(id)) {
             throw new BusinessException(Messages.Transfer.NOT_EXISTS);
         }
     }
 
-    public void checkIfPlayerIsNotUnderTransfer(Integer playerId) {
+    public void checkIfPlayerIsNotUnderTransfer(int playerId) {
         if (!repository.existsByPlayerIdAndIsCompletedIsFalse(playerId)) { // oyuncu transfer listesinde değilse
             throw new BusinessException(Messages.Transfer.PLAYER_NOT_EXISTS);
         }
     }
 
-    public void checkIfPlayerUnderTransfer(Integer playerId) { // oyuncu transfer listesindeyse
+    public void checkIfPlayerUnderTransfer(int playerId) { // oyuncu transfer listesindeyse
         if (repository.existsByPlayerIdAndIsCompletedIsFalse(playerId)) {
             throw new BusinessException(Messages.Transfer.PLAYER_EXISTS);
         }

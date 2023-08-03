@@ -20,8 +20,8 @@ import java.util.List;
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer age;
+    private int id;
+    private int age;
     private String country;
     private String firstName;
     private String lastName;

@@ -18,7 +18,7 @@ public class League {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String country;
     private String leagueName;
 

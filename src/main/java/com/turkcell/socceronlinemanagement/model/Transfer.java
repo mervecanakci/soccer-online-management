@@ -11,23 +11,17 @@ import java.time.LocalDateTime;
 import com.turkcell.socceronlinemanagement.model.Team;
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "transfers")
 public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer teamId;
-    private Integer oldTeamId;
-    private Integer newTeamId;
+    private int id;
     private String teamName;
-    private double teamValue;
-    private String playerName;
-    private String playerCountry;
+    private int teamValue;
     private double playerMarketValue = 100000.0;
-    private double  priceRequest;
+    private double  price;
     private LocalDateTime dateOfTransfer;
     private boolean isCompleted;
     private LocalDateTime endDate;

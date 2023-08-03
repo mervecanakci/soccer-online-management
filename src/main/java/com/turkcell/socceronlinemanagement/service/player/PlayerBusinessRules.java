@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class PlayerBusinessRules {
     private final PlayerRepository repository;
 
-    public void checkIfPlayerExistsById(Integer id) {
+    public void checkIfPlayerExistsById(int id) {
         if (!repository.existsById(id))
             throw new BusinessException(Messages.Player.NOT_EXISTS);
     }

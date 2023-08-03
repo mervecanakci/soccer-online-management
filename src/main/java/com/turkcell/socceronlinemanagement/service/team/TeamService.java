@@ -7,13 +7,13 @@ import java.util.List;
 public interface TeamService {
     List<TeamResponse> getAll();
 
-    TeamResponse getById(Integer id);
+   TeamResponse getById(int id);
 
     TeamResponse add(TeamRequest request);
 
-    TeamResponse update(Integer id, TeamRequest request);
+    TeamResponse update(int id, TeamRequest request);
 
-    void delete(Integer id);
+    void delete(int id);
 
     TeamResponse addTransferPlayer(TransferPlayerRequest request);
 }

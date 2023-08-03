@@ -17,9 +17,9 @@ import java.math.BigDecimal;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private double teamValue;
-    private Integer userId;
-    private Integer teamId;
-    private Integer playerId;
+    private int userId;
+    private int teamId;
+    private int playerId;
 }

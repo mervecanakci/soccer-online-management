@@ -1,7 +1,9 @@
 package com.turkcell.socceronlinemanagement.service.team;
 
+import com.turkcell.socceronlinemanagement.model.League;
 import com.turkcell.socceronlinemanagement.model.Player;
 import com.turkcell.socceronlinemanagement.model.Team;
+import com.turkcell.socceronlinemanagement.model.User;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
 import com.turkcell.socceronlinemanagement.repository.TeamRepository;
 import com.turkcell.socceronlinemanagement.service.player.PlayerBusinessRules;
@@ -10,15 +12,12 @@ import com.turkcell.socceronlinemanagement.service.player.PlayerRequest;
 import com.turkcell.socceronlinemanagement.service.player.PlayerResponse;
 import com.turkcell.socceronlinemanagement.service.transfer.TransferBusinessRules;
 import com.turkcell.socceronlinemanagement.service.transfer.TransferPlayerRequest;
-import com.turkcell.socceronlinemanagement.service.transfer.TransferService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -47,7 +46,7 @@ public class TeamImpl implements TeamService {
     }
 
     @Override
-    public TeamResponse getById(Integer id) {
+    public TeamResponse getById(int id) {
         rules.checkIfTeamExistsById(id);
         Team team = repository.findById(id).orElseThrow();
         TeamResponse response = mapper.map(team, TeamResponse.class);
@@ -58,31 +57,22 @@ public class TeamImpl implements TeamService {
     @Override
     @Transactional
     public TeamResponse add(TeamRequest request) {
-        // ModelMapper konfigürasyonunu ekleyelim
-//        mapper.typeMap(TeamRequest.class, Team.class).addMappings(mapper -> {
-//            mapper.map(TeamRequest::getUserId, Team::setId);
-//        });
-        ModelMapper mapper = new ModelMapper();
-        mapper.typeMap(TeamRequest.class, Team.class)
-                .addMappings(m -> m.skip(Team::setId));
-
         Team team = mapper.map(request, Team.class);
-        //   team.setId(0);
-
+        team.setId(0);
+        TeamRequest teamRequest = new TeamRequest();
+        User user = new User();
+        League league = new League();
+        configureModelMapper(user, league, teamRequest );
 
         repository.save(team);
         TeamResponse response = mapper.map(team, TeamResponse.class);
 
         PlayerRequest playerRequest = new PlayerRequest();
-        // Gerekli verilerle playerRequest nesnesini doldurun
-
-
-        List<PlayerResponse> playersForTeam = playerManager.add(playerRequest);
-
+        List<PlayerResponse> playersForTeam = playerManager.add(playerRequest); //playerManager.add(playerRequest) ile playerManager dan playerRequest i alıyoruz ve playerResponse listesine atıyoruz
         for (PlayerResponse playerResponse : playersForTeam) {
             team.setTeamValue(team.getTeamValue() + playerRequest.getMarketValue());
             Player player = mapper.map(playerResponse, Player.class);
-            player.setTeam(team);
+            player.setTeam(team); //player ın takımını setliyoruz
             playerRepository.save(player);
         }
 
@@ -91,7 +81,7 @@ public class TeamImpl implements TeamService {
 
 
     @Override
-    public TeamResponse update(Integer id, TeamRequest request) {
+    public TeamResponse update(int id, TeamRequest request) {
         rules.checkIfTeamExistsById(id);
         Team team = mapper.map(request, Team.class);
         team.setId(id);
@@ -102,7 +92,7 @@ public class TeamImpl implements TeamService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         rules.checkIfTeamExistsById(id);
         repository.deleteById(id);
     }
@@ -111,18 +101,17 @@ public class TeamImpl implements TeamService {
     public TeamResponse addTransferPlayer(TransferPlayerRequest request) {
         playerBusinessRules.checkIfPlayerExistsById(request.getPlayerId());
         transferBusinessRules.checkIfTransferExistsById(request.getPlayerId());
-
         teamBusinessRules.checkIfTeamExistsById(request.getPlayerId());
-        final double marketValue = playerRepository.findById(request.getPlayerId()).get().getMarketValue();
-        transferBusinessRules.checkIfBalanceIsEnough(marketValue, request.getPrice());
-        final Player player = playerRepository.findById(request.getPlayerId()).get();
-        final Team team = teamRepository.findById(request.getTeamId()).get();
-        player.setTeam(team);
+        final double marketValue = playerRepository.findById(request.getPlayerId()).get().getMarketValue(); //marketValue yu playerRepository den çekiyoruz
+        transferBusinessRules.checkIfBalanceIsEnough(marketValue, request.getPrice()); //takımıın yeterli bakiyesi var mı diye kontrol ediyoruz
+        final Player player = playerRepository.findById(request.getPlayerId()).get(); //playerId ile playerRepository den player çekiyoruz
+        final Team team = teamRepository.findById(request.getTeamId()).get(); //teamId ile teamRepository den team çekiyoruz
+        player.setTeam(team); //player ın takımını setliyoruz
 
-        double increasedMarketValue = getIncreasedMarketValue(request);
-        player.setMarketValue(increasedMarketValue);
-        this.playerRepository.save(player);
-        return mapper.map(team, TeamResponse.class);
+        double increasedMarketValue = getIncreasedMarketValue(request); //artan marketValue yu hesaplıyoruz
+        player.setMarketValue(increasedMarketValue); //player ın marketValue sunu setliyoruz
+        this.playerRepository.save(player); //player ı kaydediyoruz
+        return mapper.map(team, TeamResponse.class); //team ı döndürüyoruz
     }
 
     private double getIncreasedMarketValue(TransferPlayerRequest request) {
@@ -130,6 +119,13 @@ public class TeamImpl implements TeamService {
         double increaseAmount = request.getPrice() * increasePercentage / 100;
         return request.getPrice() + increaseAmount;
 
+    }
+    private void configureModelMapper(User user, League league, TeamRequest teamRequest) {
+        // playerCountry alanını TeamResponse sınıfındaki setPlayerCountry() ile eşleştir
+        teamRequest.setUserId(user.getId());
+        teamRequest.setLeagueId(league.getId());
+        teamRequest.setTeamName( teamRequest.getTeamName());
+        teamRequest.setTeamCountry(teamRequest.getTeamCountry());
     }
 
 

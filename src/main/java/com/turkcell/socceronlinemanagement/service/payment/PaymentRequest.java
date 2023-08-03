@@ -12,6 +12,5 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class PaymentRequest {
 
-    @Min(value = 1)
     private double teamValue;
 }

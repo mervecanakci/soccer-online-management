@@ -14,6 +14,7 @@ import com.turkcell.socceronlinemanagement.service.team.TeamService;
 import com.turkcell.socceronlinemanagement.service.user.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,18 +30,19 @@ public class TransferImpl implements TransferService {
     private final PaymentService paymentService;
     private final TransferBusinessRules rules;
     private final Random random;
-
-//todo: denedin olmadı bu manuel setledin
-
-//    private void configureModelMapper() {
+////todo: denedin olmadı bu manuel setledin
+//        transfer.setId(0);
+//    private void configureModelMapper( ModelMapper) {
 //        // playerCountry alanını TransferResponse sınıfındaki setPlayerCountry() ile eşleştir
 //        mapper.typeMap(Transfer.class, TransferResponse.class)
-//                .addMapping(Transfer::getPlayerCountry, TransferResponse::setPlayerCountry);
+//                .addMapping(Transfer::getPlayerId, TransferResponse::setPlayerId);
 //
 //        // playerMarketValue alanını TransferResponse sınıfındaki setPlayerMarketValue() ile eşleştir
 //        mapper.typeMap(Transfer.class, TransferResponse.class)
-//                .addMapping(Transfer::getPlayerMarketValue, TransferResponse::setPlayerMarketValue);
+//                .addMapping(Transfer::getTeamId, TransferResponse::setTeamId);
 //    }
+
+
 
     @Override
     public List<TransferResponse> getAll() {
@@ -54,7 +56,7 @@ public class TransferImpl implements TransferService {
     }
 
     @Override
-    public TransferResponse getById(Integer id) {
+    public TransferResponse getById(int id) {
         rules.checkIfTransferExistsById(id);
         Transfer transfer = repository.findById(id).orElseThrow();
         TransferResponse response = mapper.map(transfer, TransferResponse.class);
@@ -63,7 +65,7 @@ public class TransferImpl implements TransferService {
     }
 
     @Override
-    public TransferResponse returnPlayerFromTransfer(Integer playerId) { // player transfer listesinden çıkarmak için taransfer işlemini tamamlamak gerekiyor
+    public TransferResponse returnPlayerFromTransfer(int playerId) { // player transfer listesinden çıkarmak için taransfer işlemini tamamlamak gerekiyor
         rules.checkIfPlayerIsNotUnderTransfer(playerId);
         Transfer transfer = repository.findByPlayerIdAndIsCompletedIsFalse(playerId);
         transfer.setCompleted(true);
@@ -81,49 +83,44 @@ public class TransferImpl implements TransferService {
         rules.checkPlayerAvailabilityForTransfer(playerService.getById(request.getPlayerId()).getTransferState());
         Transfer transfer = mapper.map(request, Transfer.class);
         transfer.setId(0);
-        //Transfer transfer = new Transfer();
-        transfer.setTeamId(request.getTeamId());
-        //transfer.setTeamValue(request.getTeamValue());
-        transfer.setPlayer(mapper.map(playerService.getById(request.getPlayerId()), Player.class));
-        transfer.setPlayerMarketValue(processTransfer(transfer));
-        //transfer.setPriceRequest(request.getPriceRequest());
         transfer.setCompleted(false);
         transfer.setDateOfTransfer(LocalDateTime.now());
         transfer.setEndDate(null);
-        //repo.save
-        request.builder().playerId(0).build(); //todo nedennn    :(
+        repository.save(transfer);
+        playerService.changeTransferState(request.getPlayerId(), TransferState.TRANSFERRED);
+       request.setPlayerMarketValue(processTransfer(transfer));
+        transfer.setCompleted(false);
+        transfer.setDateOfTransfer(LocalDateTime.now());
+        transfer.setEndDate(null);
 
-//        // payment
-        CreateTransferPaymentRequest paymentRequest = new CreateTransferPaymentRequest();
-        mapper.map(request.getPaymentRequest().getTeamValue(), paymentRequest);
-        paymentRequest.setTeamId(request.getTeamId());
-        paymentRequest.setPlayerId(request.getPlayerId());
-        paymentRequest.setTeamValue(teamValueAfterTransfer(transfer));
-        paymentRequest.setPlayerMarketValue(processTransfer(transfer));
-        paymentService.processTransferPayment(paymentRequest);
+        /////  TransferRequest.builder().playerId(0).build(); //todo nedennn    :(
 
+////        // payment
+//        CreateTransferPaymentRequest paymentRequest = new CreateTransferPaymentRequest();
+//        mapper.map(request.getTeamValue(), paymentRequest);
+//        paymentRequest.setTeamId(request.getTeamId());
+//        paymentRequest.setPlayerId(request.getPlayerId());
+//        paymentRequest.setTeamValue(teamValueAfterTransfer(transfer));
+//        paymentRequest.setPlayerMarketValue(processTransfer(transfer));
+//        paymentService.processTransferPayment(paymentRequest);
+//
 
         repository.save(transfer);
+        playerService.changeTransferState(request.getPlayerId(), TransferState.TRANSFERRED);
+
         //  playerService.changeTransferState(transfer.getPlayerId(), TransferState.TRANSFERRED);
         playerService.changeTransferState(request.getPlayerId(), TransferState.TRANSFERRED);
-        TransferResponse response = new TransferResponse();
-        response.setTeamId(transfer.getTeamId());
-
-        // response.setPlayerId();
-
-        response.setTeamName(transfer.getTeamName());
-        response.setTeamValue(transfer.getTeamValue());
-        response.setPlayerName(transfer.getPlayerName());
-        response.setPlayerCountry(transfer.getPlayerCountry());
+        TransferResponse response = mapper.map(transfer, TransferResponse.class);
+        response.setId(transfer.getId());
+        response.setTeamValue(request.getTeamValue());
+        response.setPrice(request.getPrice());
         response.setPlayerMarketValue(processTransfer(transfer));
-        response.setPlayerMarketValue(transfer.getPlayerMarketValue());
-        response.setPriceRequest(transfer.getPriceRequest());
         response.setDateOfTransfer(transfer.getDateOfTransfer());
 
         //todo takım değişmeyi burada service ile yapmıştım olduğundan emin değilim
         PlayerRequest playerRequest = new PlayerRequest();
         createPlayerRequest(request, playerRequest, transfer);
-        transfer.setTeamId(transfer.getOldTeamId()); //todo: doğru mu
+       // transfer.setTeamId(transfer.getOldTeamId()); //todo: doğru mu
         playerService.add(playerRequest);
 
         return response;
@@ -132,7 +129,7 @@ public class TransferImpl implements TransferService {
 
 
     @Override
-    public TransferResponse update(Integer id, TransferRequest request) {
+    public TransferResponse update(int id, TransferRequest request) {
         rules.checkIfTransferExistsById(id);
         Transfer transfer = mapper.map(request, Transfer.class);
         transfer.setId(id);
@@ -144,16 +141,17 @@ public class TransferImpl implements TransferService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         rules.checkIfTransferExistsById(id);
         makePlayerNotTransferIfIsCompletedFalse(id);
-        Integer playerId = repository.findById(id).get().getPlayer().getId();
+        int playerId = repository.findById(id).get().getPlayer().getId();
         playerService.changeTransferState(playerId, TransferState.NOT_TRANSFERRED);
         repository.deleteById(id);
     }
 
-    private void makePlayerNotTransferIfIsCompletedFalse(Integer id) {
-        Integer playerId = repository.findById(id).get().getPlayer().getId();
+    private void makePlayerNotTransferIfIsCompletedFalse(int id) {
+     //   int playerId = repository.findById(id).get().getPlayer().getId();
+        int playerId = repository.findById(id).get().getPlayer().getId();
         if (repository.existsByPlayerIdAndIsCompletedIsFalse(playerId)) {
             playerService.changeTransferState(playerId, TransferState.NOT_TRANSFERRED);
         }
@@ -163,25 +161,10 @@ public class TransferImpl implements TransferService {
     private void createPlayerRequest(TransferRequest request, PlayerRequest playerRequest, Transfer transfer) {
         PlayerResponse playerResponse = playerService.getById(request.getPlayerId());
         playerRequest.setMarketValue(transfer.getPlayerMarketValue());
-        playerRequest.setTeamId(transfer.getNewTeamId());
+    // playerRequest.setTeamId(transfer.getNewTeamId());
         //güncelledim ya değeri playerdaki marketvalue buradaki playermarketvalue gibi ileride yine kullanırsın
     }
 
-
-    //    public BigDecimal processTransfer(Transfer transfer) {
-//        // Futbolcu nesnesinin mevcut market value'sini al
-//        Double currentMarketValue = transfer.getPlayerMarketValue();
-//        // Rastgele artış yüzdesi  (örneğin, 10% ile 100% arasında)
-//        BigDecimal increasePercentage = BigDecimal.valueOf(10 + (100 - 10) * random.nextDouble());
-//
-//        // Çarpma işlemi için "multiply()" yöntemi
-//        BigDecimal increaseAmount = currentMarketValue.multiply(increasePercentage).divide(BigDecimal.valueOf(100));
-//        // Toplama işlemi için "add()" yöntemi
-//        BigDecimal increasedMarketValue = currentMarketValue.add(increaseAmount);
-//        transfer.setPlayerMarketValue(increasedMarketValue);
-//
-//        return increasedMarketValue;
-//    }
     public double processTransfer(Transfer transfer) {
         double currentMarketValue = transfer.getPlayerMarketValue();
         double increasePercentage = 10 + (100 - 10) * random.nextDouble();
@@ -191,17 +174,16 @@ public class TransferImpl implements TransferService {
 
         return increasedMarketValue;
     }
-
-    private double teamValueAfterTransfer(Transfer transfer) {
-        double teamValue = transfer.getTeamValue();
-        double playerMarketValue = transfer.getPlayerMarketValue();
-        double teamValueAfterTransfer = teamValue - playerMarketValue;
-        transfer.setTeamValue(teamValueAfterTransfer);
-
-        return teamValueAfterTransfer;
-    }
+//todo kullanmadım
+//    private double teamValueAfterTransfer(Transfer transfer) {
+//        double teamValue = transfer.getTeamValue();
+//        double playerMarketValue = transfer.getPlayerMarketValue();
+//        double teamValueAfterTransfer = teamValue - playerMarketValue;
+//        transfer.setTeamValue(teamValueAfterTransfer);
+//
+//        return teamValueAfterTransfer;
+//    }
 }
-
 
 /**
  * todo filtreleme yap

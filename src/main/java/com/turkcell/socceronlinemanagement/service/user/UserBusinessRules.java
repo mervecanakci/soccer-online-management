@@ -12,7 +12,7 @@ public class UserBusinessRules {
     private final UserRepository repository;
 
     // private final Team team;
-    public void checkIfUserExistsById(final Integer id) { //todo final ekle hepsine
+    public void checkIfUserExistsById(final int id) { //todo final ekle hepsine
         if (!repository.existsById(id)) throw new BusinessException(Messages.User.NOT_EXISTS);
     }
 

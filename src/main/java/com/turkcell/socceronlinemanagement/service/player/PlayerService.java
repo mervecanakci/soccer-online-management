@@ -8,16 +8,16 @@ import java.util.List;
 public interface PlayerService {
     List<PlayerResponse> getAll(boolean includeTransfer);
 
-    PlayerResponse getById(Integer id);
+    PlayerResponse getById(int id);
 
     List<PlayerResponse> add(PlayerRequest request);
 
     // List<PlayerResponse>  add(PlayerRequest request, Integer marketValue);
-    PlayerResponse update(Integer id, PlayerRequest request);
+    PlayerResponse update(int id, PlayerRequest request);
 
-    void delete(Integer id);
+    void delete(int id);
 
-    void changeTransferState(Integer playerId, TransferState transferState);
+    void changeTransferState(int playerId, TransferState transferState);
 
 
 }

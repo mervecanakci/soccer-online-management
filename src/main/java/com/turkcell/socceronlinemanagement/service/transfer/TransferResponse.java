@@ -10,18 +10,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransferResponse {
-    private Integer id;
-    private Integer teamId;
+    private int id;
+    private int teamId;
    // private Integer oldTeamId; //todo: eski takımı da tutmak lazım
    // private Integer newTeamId;
     private String teamName;
     private double teamValue;
-  //  private String playerId;
+    private String playerId;
     private String playerName;
     private String playerCountry;
     private double playerMarketValue;
-    private double  priceRequest;
+    private double  price;
     private LocalDateTime dateOfTransfer;
     private boolean  isCompleted;
+
 
 }

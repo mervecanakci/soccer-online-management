@@ -13,7 +13,7 @@ public class TeamBusinessRules {
 
     private final TeamRepository repository;
 
-    public void checkIfTeamExistsById(Integer id) {
+    public void checkIfTeamExistsById(int id) {
         if (!repository.existsById(id)) throw new BusinessException(Messages.Team.NOT_EXISTS);
     }
 

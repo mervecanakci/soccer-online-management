@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,15 +22,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
+//                "/configuration/security", "/swagger-ui.html", "/webjars/**");
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf() //csrf: cross site request forgery istek dolandırılıcılığı gibi isteklerin önüne geçmek için kullanılır
                 .disable()  //csrf disable ediyoruz çünkü şu anda bu isteklerin önüne geçmek için bir önlem almamıza gerek yok
+               // .cors() //cross origin resource sharing  farklı kaynaklardan gelen istekleri paylaşmak için kullanılır
+             //   .and()
                 .authorizeHttpRequests() //http isteklerini authorize ediyoruz
-                .requestMatchers("/api/users/**", "/spring-actuator/**","/swagger-ui/**")   //bu isteklerin hepsine izin veriyor
+                .requestMatchers("/api/users/**", "/spring-actuator/**")//,"/swagger-ui/**
+                //bu isteklerin hepsine izin veriyor
                 .permitAll()
                 //.hasAnyAuthority("ROLE_ADMIN")  //hasAnyAuthority: verilen yetkilere sahip olan kullanıcıları arar
 //                .hasRole(Role.ADMIN.name()) // hasRole:  "ROLE_" ön eki ile verilen rolü arar

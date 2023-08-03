@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeamResponse {
-    private Integer id;
+    private int id;
     private String teamName;
     private double teamValue;
     private String teamCountry;

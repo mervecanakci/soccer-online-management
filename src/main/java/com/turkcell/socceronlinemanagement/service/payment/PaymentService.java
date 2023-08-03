@@ -8,13 +8,13 @@ import java.util.List;
 public interface PaymentService {
     List<PaymentResponse> getAll();
 
-    PaymentResponse getById(Integer id);
+    PaymentResponse getById(int id);
 
     PaymentResponse add(PaymentRequest request);
 
-    PaymentResponse update(Integer id, PaymentRequest request);
+    PaymentResponse update(int id, PaymentRequest request);
 
-    void delete(Integer id);
+    void delete(int id);
 
     void processTransferPayment(CreateTransferPaymentRequest request);
 

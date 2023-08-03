@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateTransferPaymentRequest {
-  //  private Integer userId;
-    private Integer teamId;
-    private Integer playerId;
+  //  private int userId;
+    private int teamId;
+    private int playerId;
 //    private String newTeamName;
 //    private String oldTeamName;
 //    private String playerFirstName;

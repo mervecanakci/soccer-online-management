@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @RequiredArgsConstructor
 public class TransferPlayerRequest {
-    private Integer teamId;
-    private Integer playerId;
+    private int teamId;
+    private int playerId;
     private double price;
 }

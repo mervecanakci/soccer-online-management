@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.net.ssl.SSLSession;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -16,22 +17,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransferRequest {
-    @Min(1)
+
     private int teamId;
-    @NotNull
-    private double teamValue;
-    @Min(1)
-    private Integer playerId;
+    //    @NotNull
+//    private double teamValue;
+
+    private int playerId;
 
     private double playerMarketValue;
 
-    private double priceRequest;
+    private double price;
+    private double teamValue;
 
-    private PaymentRequest paymentRequest;
+
+    }
+    // private PaymentRequest paymentRequest;
 
     //@NotNull
     //  private double playerMarketValue;
     //  private LocalDateTime dateOfTransfer;
     //  private boolean isCompleted;
 
-}
+
+//eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwic3ViIjoibWVydmUzIiwiaWF0IjoxNjkxMDQwMTcxLCJleHAiOjE2OTEwNDE2MTF9.FCqgbc6_BKKUu1Gf1q4A2iAcIy64W9yhe9RlRzPlb70
