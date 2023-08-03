@@ -36,7 +36,6 @@ public class TransferBusinessRules {
             throw new BusinessException(Messages.Transfer.PLAYER_EXISTS);
         }
     }
-    //todo sanki mantıklı ve gerekli değil gibi, daha farklı senoryolarda olabilir ; State.KIRALIK gibi durumlarda
     public void checkIfBalanceIsEnough(double playerMarketValue, double teamValue) {
         if (teamValue < playerMarketValue) {
             throw new BusinessException(Messages.Payment.NOT_ENOUGHT_MONEY);

@@ -43,8 +43,6 @@ public class UserImpl  implements UserService {
         response.setPassword(user.getPassword());
         response.setTeams(teamService.getAll());
 
-
-        // return new UserResponse(jwtToken,user); //todo bunu şimdi değiştin
         return response;
     }
 
@@ -73,8 +71,6 @@ public class UserImpl  implements UserService {
         response.setPassword(user.getPassword());
         response.setTeams(teamService.getAll());
 
-
-        // return new UserResponse(jwtToken,user); //todo bunu şimdi değiştin
         return response;
     }
     @Override

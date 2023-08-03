@@ -12,14 +12,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateTransferPaymentRequest {
-  //  private int userId;
     private int teamId;
     private int playerId;
-//    private String newTeamName;
-//    private String oldTeamName;
-//    private String playerFirstName;
-//    private String playerLastName;
     private double teamValue;
     private double playerMarketValue;
 
-}//todo: böyle değil düzenle payment manager da kullandıklarına göre
+}/

@@ -9,9 +9,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     //bu sorguyu transfer de kullanıcaz caRDnUMBER UNİQ DİYE ONLA YAPTIK
     Payment findByTeamValue(double teamValue);
 
-
-    //todo hata veriyordu yorumda *** düzeldi test etmedin ama
     boolean existsByUserIdAndTeamIdAndPlayerId(
             Integer userId, Integer teamId, Integer playerId);
-//todo
+
 }
