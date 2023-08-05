@@ -20,8 +20,8 @@ import java.util.Map;
 @RestControllerAdvice //hatayı dinliyor ve buraya getiriyor
 public class RestExceptionHandler {
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST) // 400
-    public ExceptionResult<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 400 : istek geçersiz olduğunda
+    public ExceptionResult<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) { //bir yöntem argümanı geçersiz olduğunda atılan özel bir istisnadır
         Map<String, String> validationErrors = new HashMap<>();
         for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
@@ -30,26 +30,26 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler// gelen hatayı yönetiyor
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422
-    public ExceptionResult<Object> handleValidationException(ValidationException exception) {
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422 : işlenemeyen varlık
+    public ExceptionResult<Object> handleValidationException(ValidationException exception) {  //doğrulama hatası
         return new ExceptionResult<>(ExceptionTypes.Exception.Validation, exception.getMessage());
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422
-    public ExceptionResult<Object> handleBusinessException(BusinessException exception) {
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) // 422 : işlenemeyen varlık
+    public ExceptionResult<Object> handleBusinessException(BusinessException exception) { //iş  hatası
         return new ExceptionResult<>(ExceptionTypes.Exception.Business, exception.getMessage());
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT) // 409
-    public ExceptionResult<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    @ResponseStatus(HttpStatus.CONFLICT) // 409 : istekle çelişen bir durum
+    public ExceptionResult<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) { //veritabanı bütünlüğü tutarsızlığı
         return new ExceptionResult<>(ExceptionTypes.Exception.DataIntegrityViolation, exception.getMessage());
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
-    public ExceptionResult<Object> handleRuntimeException(RuntimeException exception) {
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500 : sunucu hatası
+    public ExceptionResult<Object> handleRuntimeException(RuntimeException exception) { //çalışma zamanı hatası
         return new ExceptionResult<>(ExceptionTypes.Exception.Runtime, exception.getMessage());
     }
 }

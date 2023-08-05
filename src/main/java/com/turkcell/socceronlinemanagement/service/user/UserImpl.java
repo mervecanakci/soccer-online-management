@@ -53,7 +53,7 @@ public class UserImpl  implements UserService {
         HashMap<String, Object> claims = new HashMap<>(); // kullanıcıya ait roller claims içerisine ekle
         try {
             user = repository.findByEmail(request.getEmail()).orElseThrow(); // kullanıcı adı ile kullanıcı bulunur
-            for (var role : user.getAuthorities()) {
+            for (var role : user.getAuthorities()) { // kullanıcıya ait roller claims içerisine ekle
                 claims.put("roles", role.toString());
             }
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())); // kullanıcı adı ve şifre ile token oluşturulur

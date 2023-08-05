@@ -24,17 +24,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
      private String email;
-
     private String password;
-
    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Team> teams;
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+    public Collection<? extends GrantedAuthority> getAuthorities() { //GrantedAuthority: security nin beklediği bir interface kullanıcının yetkilerini tututyor
+        // getAuthorities: Kullanıcının yetkilerini döndüren bir method
+        return List.of(new SimpleGrantedAuthority(role.name())); //SimpleGrantedAuthority: GrantedAuthority interface'ini implemente eden bir class
     }
 
     @Override
@@ -43,19 +43,19 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired() { // Kullanıcı hesabı süresi geçmiş mi geçmemiş mi
         return true;
     }
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked() {   // Kullanıcı hesabı kilitli mi değil mi
         return true;
     }
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired() { // Şifre geçerli mi değil mi
         return true;
     }
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled() { // Kullanıcı aktif mi değil mi
         return true;
     }
 }

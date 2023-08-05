@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor // final değişkenler için constructor oluşturur
-public class ApplicationConfig {
+public class ApplicationConfig { // uygulama ayarları: kimlik doğrulaması, şifreleme algoritması, kullanıcı detayları, vb.
     private final UserRepository userRepository;
 
     @Bean

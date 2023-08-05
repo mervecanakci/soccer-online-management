@@ -17,4 +17,4 @@ public class CreateTransferPaymentRequest {
     private double teamValue;
     private double playerMarketValue;
 
-}/
+}

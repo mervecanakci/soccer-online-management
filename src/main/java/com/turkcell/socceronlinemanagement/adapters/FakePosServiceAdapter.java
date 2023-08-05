@@ -12,8 +12,8 @@ import java.util.Random;
 @Service
 public class FakePosServiceAdapter implements PosService {
     @Override
-    public void pay() {
-        boolean isPaymentSuccessful = new Random().nextBoolean();
-        if (!isPaymentSuccessful) throw new BusinessException(Messages.Payment.FAILED);
+    public void pay() { //ödeme işlemini simüle ediyor
+        boolean isPaymentSuccessful = new Random().nextBoolean(); //rastgele bir boolean değer döndürüyor
+        if (!isPaymentSuccessful) throw new BusinessException(Messages.Payment.FAILED); //ödeme başarısızsa hata fırlatıyor
     }
 }

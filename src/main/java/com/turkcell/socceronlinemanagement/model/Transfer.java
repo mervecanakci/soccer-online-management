@@ -31,6 +31,5 @@ public class Transfer {
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
-
 }
 

@@ -21,12 +21,12 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter { //OncePerRequestFilter, her istek için yalnızca bir kez çağrılan bir filtre sağlar
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(
+    protected void doFilterInternal(  //doFilterInternal, filtreleme mantığını uygulamak için kullanılır
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
@@ -43,28 +43,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //            map.put(key, value);
 //        }
 
-        final String authHeader = request.getHeader("Authorization");
+        final String authHeader = request.getHeader("Authorization"); //Authorization header'ını alıyoruz
         final String jwt;
         final String username;
-        if (authHeader == null || !Optional.of(authHeader).orElse("").trim().contains("Bearer ")) {
+        if (authHeader == null || !Optional.of(authHeader).orElse("").trim().contains("Bearer ")) { // .trim() : boşlukları siler
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.substring(7);
+        jwt = authHeader.substring(7); //Bearer'ı silip sadece tokeni alıyoruz
         username = jwtService.extractUsername(jwt);
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { // kullanıcı daha önce kimlik doğrulaması yapmamışsa
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username); //loadUserByUsername methodu ile kullanıcı bilgilerini alıyoruz
-            var authorities = new HashSet<GrantedAuthority>(userDetails.getAuthorities().size());
+            var authorities = new HashSet<GrantedAuthority>(userDetails.getAuthorities().size()); //HashSet: aynı elemandan birden fazla olmaz
             for (var role : userDetails.getAuthorities()) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toString()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toString())); //Kullanıcının rollerini alıyoruz ve ROLE_ ile başlatıyoruz
             }
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+            if (jwtService.isTokenValid(jwt, userDetails)) { //Token geçerli mi değil mi
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken( //kullanıcı adı ve şifre ile kimlik doğrulaması yapar
                         userDetails, null, authorities
                 );
                 authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
+                        new WebAuthenticationDetailsSource().buildDetails(request) // kullanıcının kimlik doğrulaması için kullanılan bilgileri tutar
                 );
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

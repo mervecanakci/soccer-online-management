@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ExceptionResult<T> {
+public class ExceptionResult<T> { //hata mesajlarını döndürmek için kullanılan sınıf
 
 
-    private LocalDateTime timestamp;
-    private String type;
-    private T message;
+    private LocalDateTime timestamp; //hata zamanı
+    private String type; //hata tipi
+    private T message; //hata mesajı
 
     public ExceptionResult(String type, T message) {
         timestamp = LocalDateTime.now();

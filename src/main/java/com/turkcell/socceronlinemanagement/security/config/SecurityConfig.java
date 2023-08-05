@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig {
+@EnableMethodSecurity(securedEnabled = true) // method bazlı yetkilendirme yapmak için kullanılır
+public class SecurityConfig { //spring security ayarları
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 //    @Override
@@ -32,7 +32,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .csrf() //csrf: cross site request forgery istek dolandırılıcılığı gibi isteklerin önüne geçmek için kullanılır
                 .disable()  //csrf disable ediyoruz çünkü şu anda bu isteklerin önüne geçmek için bir önlem almamıza gerek yok
                 .authorizeHttpRequests() //http isteklerini authorize ediyoruz
@@ -53,5 +52,3 @@ public class SecurityConfig {
         return http.build(); // http build edilir
     }
 }
-//            .hasAnyAuthority(String.valueOf(Role.ADMIN))
-//                .hasAnyAuthority("ADMIN")
