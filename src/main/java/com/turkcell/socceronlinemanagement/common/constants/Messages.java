@@ -2,7 +2,7 @@ package com.turkcell.socceronlinemanagement.common.constants;
 
 public class Messages {
     public static class Player {
-        public static final String NOT_EXISTS = "PLAYER_NOT_EXISTS";
+        public static final String PLAYER_NOT_EXISTS = "PLAYER_NOT_EXISTS";
         public static final String EXISTS = "PLAYER_ALREADY_EXISTS";
     }
 

@@ -1,9 +1,9 @@
-package com.turkcell.socceronlinemanagement.core.configuration.exceptions;
+package com.turkcell.socceronlinemanagement.advice;
 
 
+import com.turkcell.socceronlinemanagement.advice.exception.BusinessException;
 import com.turkcell.socceronlinemanagement.common.constants.ExceptionTypes;
-import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
-import com.turkcell.socceronlinemanagement.core.utils.results.ExceptionResult;
+import com.turkcell.socceronlinemanagement.util.result.ExceptionResult;
 import org.modelmapper.ValidationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -45,6 +45,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT) // 409 : istekle çelişen bir durum
     public ExceptionResult<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) { //veritabanı bütünlüğü tutarsızlığı
         return new ExceptionResult<>(ExceptionTypes.Exception.DataIntegrityViolation, exception.getMessage());
+
     }
 
     @ExceptionHandler

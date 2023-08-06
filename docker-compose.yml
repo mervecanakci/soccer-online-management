@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  som-db:
+    image: postgres
+    container_name: som-db
+    volumes:
+      - postgres-somdb:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=turkcell-soccer-online-managemanetdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - "5432:5432"
+
+  som-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: som-app
+    image: som-app-image
+    depends_on:
+      - som-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://som-db:5432/turkcell-soccer-online-managemanetdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345
+    ports:
+      - "8090:8090"
+
+volumes:
+  postgres-somdb:
+    driver: local

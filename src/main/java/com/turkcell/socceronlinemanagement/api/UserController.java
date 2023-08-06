@@ -21,7 +21,8 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/register")
-    public UserResponse register(@Valid @RequestBody UserRegisterRequest request) {
+    public UserResponse register(@Valid @RequestBody UserRegisterRequest request) throws InterruptedException{
+        Thread.sleep(2000);
         return service.register(request);
     }
 

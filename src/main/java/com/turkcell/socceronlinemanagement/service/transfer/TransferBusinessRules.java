@@ -2,7 +2,7 @@ package com.turkcell.socceronlinemanagement.service.transfer;
 
 
 import com.turkcell.socceronlinemanagement.common.constants.Messages;
-import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
+import com.turkcell.socceronlinemanagement.advice.exception.BusinessException;
 import com.turkcell.socceronlinemanagement.model.enums.TransferState;
 import com.turkcell.socceronlinemanagement.repository.TransferRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,7 @@ public class TransferBusinessRules {
             throw new BusinessException(Messages.Transfer.NOT_EXISTS);
         }
     }
+
 
     public void checkIfPlayerIsNotUnderTransfer(int playerId) {
         if (!repository.existsByPlayerIdAndIsCompletedIsFalse(playerId)) { // oyuncu transfer listesinde değilse

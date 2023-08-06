@@ -1,4 +1,4 @@
-package com.turkcell.socceronlinemanagement.core.utils.results;
+package com.turkcell.socceronlinemanagement.util.result;
 
 import lombok.Getter;
 import lombok.Setter;

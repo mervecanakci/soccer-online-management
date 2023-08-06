@@ -1,6 +1,5 @@
 package com.turkcell.socceronlinemanagement.service.team;
 
-
 import com.turkcell.socceronlinemanagement.service.transfer.TransferPlayerRequest;
 import jakarta.validation.Valid;
 

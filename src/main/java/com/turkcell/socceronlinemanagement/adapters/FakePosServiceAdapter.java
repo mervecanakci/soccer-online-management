@@ -3,7 +3,7 @@ package com.turkcell.socceronlinemanagement.adapters;
 
 
 import com.turkcell.socceronlinemanagement.common.constants.Messages;
-import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
+import com.turkcell.socceronlinemanagement.advice.exception.BusinessException;
 import com.turkcell.socceronlinemanagement.service.payment.PosService;
 import org.springframework.stereotype.Service;
 

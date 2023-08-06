@@ -2,7 +2,7 @@ package com.turkcell.socceronlinemanagement.service.player;
 
 
 import com.turkcell.socceronlinemanagement.common.constants.Messages;
-import com.turkcell.socceronlinemanagement.core.exceptions.BusinessException;
+import com.turkcell.socceronlinemanagement.advice.exception.BusinessException;
 import com.turkcell.socceronlinemanagement.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class PlayerBusinessRules {
 
     public void checkIfPlayerExistsById(int id) {
         if (!repository.existsById(id))
-            throw new BusinessException(Messages.Player.NOT_EXISTS);
+            throw new BusinessException(Messages.Player.PLAYER_NOT_EXISTS);
     }
 
 
