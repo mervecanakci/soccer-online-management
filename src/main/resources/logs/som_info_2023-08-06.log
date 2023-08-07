@@ -1,0 +1,4 @@
+2023-08-06 13:50:39 [http-nio-8090-exec-3] INFO  c.t.s.a.RestControllerLoggingAspect - Class: UserController Method: register is called
+
+2023-08-06 15:09:52 [http-nio-8090-exec-5] INFO  c.t.s.a.RestControllerLoggingAspect - Class: UserController Method: authenticate is called
+

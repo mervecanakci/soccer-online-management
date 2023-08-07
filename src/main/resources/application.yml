@@ -2,7 +2,7 @@ spring:
   application:
     name: som
   main:
-    allow-bean-definition-overriding: true
+    allow-bean-definition-overriding: true # aynı bean ismi ile bean oluşturulabilir.
   datasource:
     username: postgres
     url: jdbc:postgresql://localhost:5432/turkcell-soccer-online-managemanetdb
@@ -24,7 +24,7 @@ server:
 application:
   security:
     jwt:
-      secret-key: 1cc545c907bb8122cdd3d5feec5d5e5062db82bebe5c83eab114a33aaf9536c2
+      secret-key: 1cc545c907bb8122cdd3d5feec5d5e5062db82bebe5c83eab114a33aaf9536c2 # 256 bit secret key
 
 
 

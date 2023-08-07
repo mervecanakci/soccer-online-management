@@ -1,0 +1,2 @@
+2023-08-06 13:50:39 [http-nio-8090-exec-3] WARN  c.t.s.a.PerformanceMonitorAspect - UserController.register took longer than 1 seconds to execute. Duration: 2252 ms
+

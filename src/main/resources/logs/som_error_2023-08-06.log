@@ -1,0 +1,4 @@
+2023-08-06 15:09:14 [http-nio-8090-exec-1] ERROR c.t.s.aspect.ExceptionLoggingAspect - com.turkcell.socceronlinemanagement.advice.RestExceptionHandler.handleRuntimeException => com.turkcell.socceronlinemanagement.util.result.ExceptionResult@2d557f4c
+
+2023-08-06 15:09:30 [http-nio-8090-exec-4] ERROR c.t.s.aspect.ExceptionLoggingAspect - com.turkcell.socceronlinemanagement.advice.RestExceptionHandler.handleRuntimeException => com.turkcell.socceronlinemanagement.util.result.ExceptionResult@66d54c43
+

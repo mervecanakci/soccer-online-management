@@ -1,0 +1,59 @@
+<configuration>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
+    <appender name="ERROR_LOGS" class="ch.qos.logback.core.rolling.RollingFileAppender">   <!--   RollingFileAppender: Log dosyalarını belirli bir boyuta geldiğinde yeni bir dosya oluşturarak devam etmesini sağlar. -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  <!--  TimeBasedRollingPolicy: Log dosyalarının belirli bir zaman aralığında oluşturulmasını sağlar. -->
+            <fileNamePattern>./src/main/resources/logs/${springAppName}_error_%d{yyyy-MM-dd}.log</fileNamePattern>  <!--   Log dosyalarının isimlendirilmesi için kullanılır. -->
+            <maxHistory>30</maxHistory>  <!--   Log dosyalarının maksimum sayısını belirler. -->
+            <totalSizeCap>100MB</totalSizeCap>  <!--   Log dosyalarının maksimum boyutunu belirler. -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>  <!--   Log dosyalarının içerisindeki formatı belirler. -->
+        </encoder>
+    </appender>
+
+    <appender name="PERFORMANCE_LOGS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./src/main/resources/logs/${springAppName}_performance_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="INFO_LOGS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./src/main/resources/logs/${springAppName}_info_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%yellow(%date) %highlight(%-5level) %green([%thread]) %magenta(%logger{15}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+  <logger name="com.turkcell.socceronlinemanagement.aspect.ExceptionLoggingAspect" level="ERROR">  <!--  Log dosyalarının içerisindeki log seviyesini belirler.-->
+        <appender-ref ref="ERROR_LOGS"/>   <!--  Log dosyalarının hangi appender'a yazılacağını belirler. -->
+    </logger>
+
+    <logger name="com.turkcell.socceronlinemanagement.aspect.PerformanceMonitorAspect" level="WARN">
+        <appender-ref ref="PERFORMANCE_LOGS"/>
+    </logger>
+
+    <logger name="com.turkcell.socceronlinemanagement.aspect.RestControllerLoggingAspect" level="INFO">
+        <appender-ref ref="INFO_LOGS"/>
+        <appender-ref ref="STDOUT"/>  <!--  Log dosyalarının hem dosyaya hem de konsola yazılmasını sağlar. -->
+    </logger>
+
+    <root level="INFO">   <!--  root logger'ı tüm logları kapsıyor. Bu yüzden root logger'ı INFO seviyesinde tutup, diğer logları da ayrı ayrı belirledik. -->
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
