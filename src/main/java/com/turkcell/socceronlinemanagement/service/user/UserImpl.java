@@ -32,7 +32,7 @@ public class UserImpl  implements UserService {
         user.setRole(request.getRole());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // şifre encode edilir. encode şifreleme işlemidir.
-        //user.setId(null); böyleydi üstteki gibi, yaptın
+        //user.setId(null); böyleydi üstteki gibi, yaptın yani
         var jwtToken = jwtService.generateToken(user);
         repository.save(user);
         UserResponse response = new UserResponse();

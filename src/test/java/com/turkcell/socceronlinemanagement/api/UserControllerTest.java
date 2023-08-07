@@ -1,18 +1,11 @@
 package com.turkcell.socceronlinemanagement.api;
 
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turkcell.socceronlinemanagement.model.enums.Role;
 import com.turkcell.socceronlinemanagement.service.user.UserAuthRequest;
 import com.turkcell.socceronlinemanagement.service.user.UserRegisterRequest;
 import com.turkcell.socceronlinemanagement.service.user.UserResponse;
 import com.turkcell.socceronlinemanagement.service.user.UserService;
-
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -26,6 +19,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {UserController.class})
 @ExtendWith(SpringExtension.class)
@@ -41,8 +38,8 @@ class UserControllerTest {
         when(userService.register(Mockito.<UserRegisterRequest>any())).thenReturn(new UserResponse());
 
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
-        userRegisterRequest.setEmail("jane.doe@example.org");
-        userRegisterRequest.setPassword("iloveyou");
+        userRegisterRequest.setEmail("merve@gmail.com");
+        userRegisterRequest.setPassword("12345678");
         userRegisterRequest.setRole(Role.USER);
         String content = (new ObjectMapper()).writeValueAsString(userRegisterRequest);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/users/register")
@@ -62,8 +59,8 @@ class UserControllerTest {
         when(userService.getAll()).thenReturn(new ArrayList<>());
 
         UserAuthRequest userAuthRequest = new UserAuthRequest();
-        userAuthRequest.setEmail("jane.doe@example.org");
-        userAuthRequest.setPassword("iloveyou");
+        userAuthRequest.setEmail("merve@gmail.com");
+        userAuthRequest.setPassword("12345678");
         String content = (new ObjectMapper()).writeValueAsString(userAuthRequest);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -81,8 +78,8 @@ class UserControllerTest {
         when(userService.authenticate(Mockito.<UserAuthRequest>any())).thenReturn(new UserResponse());
 
         UserAuthRequest userAuthRequest = new UserAuthRequest();
-        userAuthRequest.setEmail("jane.doe@example.org");
-        userAuthRequest.setPassword("iloveyou");
+        userAuthRequest.setEmail("merve@gmail.com");
+        userAuthRequest.setPassword("12345678");
         String content = (new ObjectMapper()).writeValueAsString(userAuthRequest);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/users/authenticate")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -139,8 +136,8 @@ class UserControllerTest {
         when(userService.update(anyInt(), Mockito.<UserAuthRequest>any())).thenReturn(new UserResponse());
 
         UserAuthRequest userAuthRequest = new UserAuthRequest();
-        userAuthRequest.setEmail("jane.doe@example.org");
-        userAuthRequest.setPassword("iloveyou");
+        userAuthRequest.setEmail("merve@gmail.com");
+        userAuthRequest.setPassword("12345678");
         String content = (new ObjectMapper()).writeValueAsString(userAuthRequest);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/users/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
