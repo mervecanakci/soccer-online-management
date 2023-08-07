@@ -20,7 +20,7 @@ The application is a platform where football fans can create teams and conduct p
 ## Usage
 ### You can run the project on your local machine by following the steps below:
 * Clone the repository
-* Create a database named "soccer-online-management"
+* Create a database named "turkcell-soccer-online-managemanetdb"
 * Run the application
 * Run the following commands in the terminal
 ``` docker-compose -p container-name up -d```
